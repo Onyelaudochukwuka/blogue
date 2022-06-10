@@ -7,17 +7,21 @@ const PostWidget = ( {slug,categories } ) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
   useEffect(() => {
 if(slug){
-  getSimilarPosts(category, slug)
+  getSimilarPosts(categories, slug)
   .then((result) => setRelatedPosts(result))
 }
 else{
   getRecentPosts()
   .then((result) => setRelatedPosts(result))
 }
-  }, [slug])
+  }, [slug,categories])
   
   return (
-    <div>PostWidget</div>
+    <div className="bg-white shadow-lg rounded-lg p-8 mb-8">
+      <h3r classNamer="text-xl mb-8 font-semibold border-b PB-4">
+      {slug ? 'Related Posts' : 'Recent Posts'}
+      </h3>
+    </div>
   )
 }
 
