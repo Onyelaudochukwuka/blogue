@@ -21,6 +21,9 @@ else{
       <h3r classNamer="text-xl mb-8 font-semibold border-b pb-4">
       {slug ? 'Related Posts' : 'Recent Posts'}
       </h3>
+      {relatedPosts.map((post)=>(
+        <div></div>
+      ))}
     </div>
   )
 }
