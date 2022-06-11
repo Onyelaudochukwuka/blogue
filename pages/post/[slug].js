@@ -13,7 +13,10 @@ const PostDetails = () => {
             <CommentsForm />
             <Comments />
             </div>
-            
+            <div className="relative lg:sticky top-8">
+                <PostWidget />
+                <Categories />
+            </div>
         </div>
     </div>
   )
