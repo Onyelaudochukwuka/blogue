@@ -1,8 +1,10 @@
 import React from 'react'
 
-const PostDetail = () => {
+const PostDetail = ({ post }) => {
   return (
-    <div>PostDetail</div>
+    <div>
+      
+    </div>
   )
 }
 
