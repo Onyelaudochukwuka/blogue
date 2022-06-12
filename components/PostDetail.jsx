@@ -2,7 +2,7 @@ import React from 'react'
 
 const PostDetail = ({ post }) => {
   return (
-    <div>
+    <div className="bg-white shadow-lg">
       
     </div>
   )
