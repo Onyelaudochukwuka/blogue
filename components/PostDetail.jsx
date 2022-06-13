@@ -34,8 +34,12 @@ const PostDetail = ({ post }) => {
         </div>
       </div>
       <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
+      {post.content.raw.children.map((typeObj, index) => {
+        const children = typeObj.children.map((item,ItemIndex)=> getContentFragment(ItemIndex, item.text, item))
+      })}
+      {console.log(post.content.raw)}
     </div>
   )
 }
 
-export default PostDetail
+export default PostDetail;
