@@ -1,8 +1,17 @@
 import React from 'react'
 
-const Author = () => {
+const Author = ({ author }) => {
+  console.log(author);
   return (
-    <div>Author</div>
+    <div>
+      <img 
+      // alt={author.name}
+      height="100px"
+      width="100px"
+      className="align-middle rounded-full"
+      src={author.photo.url}
+      />
+    </div>
   )
 }
 

@@ -76,7 +76,6 @@ const PostDetail = ({ post }) => {
           const children = typeObj.children.map((item, ItemIndex) => getContentFragment(ItemIndex, item.text, item));
           return getContentFragment(index, children, typeObj, typeObj.type)
         })}
-      {console.log(post.content.raw)}
     </div>
   )
 }
