@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Author = ({ author }) => {
-  console.log(author);
   return (
-    <div>
+    <div className="text-center mt-20 mb-8 p-12 relative rounded-lg bg-black bg-opacity-20">
+      <div></div>
       <img 
       // alt={author.name}
       height="100px"
