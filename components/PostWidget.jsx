@@ -36,7 +36,7 @@ else{
           <p className="text-gray-500 text-xs">
             {moment(post.createdAt).format('MM DD, YYYY')}
           </p>
-          <Link href={`post/${post.slug}`} className="text-md">
+          <Link href={slug ? `${post.slug}` : `post/${post.slug}`} className="text-md">
             {post.title}
           </Link>
             </div>
