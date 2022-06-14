@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-
+import { submitComment } from ../services;
 const CommentsForm = ({ slug }) => {
   let [error, setError] = useState(false);
   let [localStorage , setLocalStorage] = useState(false);
@@ -29,6 +29,11 @@ const CommentsForm = ({ slug }) => {
       localStorage.remove('name', name)
       localStorage.remove('email', email)
     }
+    submitComment(commentObj)
+    .then((res)=>{
+      setShowSucessMessage(true);
+      setTimeout(()=>{ setShowSucessMessage(true) }, 3000)
+    })
   }
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
