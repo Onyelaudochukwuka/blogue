@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { submitComment } from ../services;
+import { submitComment } from '../services';
 const CommentsForm = ({ slug }) => {
   let [error, setError] = useState(false);
   let [localStorage , setLocalStorage] = useState(false);
@@ -8,6 +8,10 @@ const CommentsForm = ({ slug }) => {
   const nameEl = useRef();
   const emailEl = useRef();
   const storeDataEl = useRef();
+  useEffect(()=>{
+    nameEl.current.value = window.localStorage.getItem('name');
+        emailEl.current.value = window.localStorage.getItem('email');
+  }, [])
   const handleCommentSubmission = () =>{
     setError(false);
     const { value: comment } = commentEl.current;
@@ -22,22 +26,23 @@ const CommentsForm = ({ slug }) => {
       name, email , comment, slug
     }
     if(storeData){
-      localStorage.setItem('name', name)
-      localStorage.setItem('email', email)
+      window.localStorage.setItem('name', name)
+      window.localStorage.setItem('email', email)
     }
-    else{
-      localStorage.remove('name', name)
-      localStorage.remove('email', email)
+    else if( window.localStorage.getItem('name') && window.localStorage.getItem('email'))
+{
+      window.localStorage.remove('name', name)
+      window.localStorage.remove('email', email)
     }
     submitComment(commentObj)
     .then((res)=>{
-      setShowSucessMessage(true);
-      setTimeout(()=>{ setShowSucessMessage(true) }, 3000)
+      setShowSuccessMessage(true);
+      setTimeout(()=>{ setShowSuccessMessage(true) }, 3000)
     })
   }
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
-        <h3 className="text-xl mb-8 font-semibold border-b pb-4">CommentsForm</h3>
+        <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave A Reply</h3>
         <div className="grid grid-cols-1 gap-4 mb-4">
           <textarea
            ref={commentEl}
