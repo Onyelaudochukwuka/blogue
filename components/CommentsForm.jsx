@@ -29,15 +29,14 @@ const CommentsForm = ({ slug }) => {
       window.localStorage.setItem('name', name)
       window.localStorage.setItem('email', email)
     }
-    else if( window.localStorage.getItem('name') && window.localStorage.getItem('email'))
-{
-      window.localStorage.remove('name', name)
-      window.localStorage.remove('email', email)
+    else{
+      window.localStorage.removeItem('name', name)
+      window.localStorage.removeItem('email', email)
     }
     submitComment(commentObj)
     .then((res)=>{
       setShowSuccessMessage(true);
-      setTimeout(()=>{ setShowSuccessMessage(true) }, 3000)
+      setTimeout(()=>{ setShowSuccessMessage(false) }, 3000)
     })
   }
   return (
