@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Header } from './';
-import { Helmet } from "react-helmet";
 
 const Layout = ({children}) => {
+  useEffect(()=> {
+        document.body.style.backgroundImage= window.localStorage.getItem('background') ? window.localStorage.getItem('background') : "linear-gradient(-225deg, #231557 0%, #44107A 29%, #FF1361 67%, #FFF800 100%)";
+  },[window.localStorage.getItem('background')])
   return (
-    <div>
-       <Helmet> <style> {"body { backgroun-iImage: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);}"}</style> </Helmet> 
+    <div className="h-screen">
       <Header />  
       {children}
     </div>

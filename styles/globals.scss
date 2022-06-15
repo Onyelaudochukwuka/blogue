@@ -13,7 +13,10 @@ body {
     content:'';
     content: "";
     width: 100%;
-
+    height: 100vh;
+    //linear-gradient(to right bottom, #6d327c, #485DA6, #00a1ba, #01b18e, #32b37b);
+    // background: #D3D3D3;
+    // background-image: url("../public/bg.jpg");
     position: fixed;
     left: 0;
     top: 0;
@@ -58,4 +61,49 @@ a {
 
 * {
   box-sizing: border-box;
+}
+.containn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-size: cover;
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  display: table;
+}
+
+.contentr {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.item {
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  text-align: center;
+  padding: 8px;
+}
+
+@media only screen and (min-width: 800px) {
+  .containn h1 {
+    font-size: 6em;
+  }
+  .containn p {
+    font-size: 1.6em;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .container h1 {
+    font-size: 2em;
+  }
+  .container p {
+    font-size: 1.2em;
+  }
 }
