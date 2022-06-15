@@ -7,28 +7,26 @@ const Header = () => {
     <>
     <div className="container mx-auto px-10 mb-8">
             <div className="border-b w-full inline-block border-blue-400 py-8">
-                <div className="md:float-left block mr-auto my-auto align-middle">
+                <div className="md:float-left block mr-auto">
                     <Link href="/">
-                        <span className="cursor-pointer font-bold align-middle text-4xl text-white">
-                            GraphCMS
+                        <span className="cursor-pointer font-bold text-4xl text-white">
+                            Blogue
                         </span>
                     </Link>
                 </div>
                 <div className="hidden md:float-left md:contents">
                 <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
-                <Image src="/../public/OIP.jfif" width="65px" height= "65px" className="rounded-full" onClick={()=>setDrop(!drop)}/>
-                { drop && <div className="absolute">
-                    <Link href="/profile"><span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
+                <Image src="/../public/OIP.jfif" width="75px" height= "75px" className="rounded-full" onClick={()=>setDrop((!drop))}/>
+                { drop && <div className="absolute right-">
+                    <Link href="/profile"><span className="md:float-right mt-2 align-middle text-white ml- font-semibold cursor-pointer">
                     My Profile
                 </span></Link>
-                    <Link href="/settings"><span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
+                    <Link href="/settings"><span className="md:float-right mt-2 align-middle text-white ml- font-semibold cursor-pointer">
                     Settings
                 </span></Link>
-                    <Link href="/create"><span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
+                    <Link href="/create"><span className="md:float-right mt-2 align-middle text-white ml- font-semibold cursor-pointer">
                     Create Post
                 </span></Link>
-                    <Link href="/settings">Settings</Link>
-                    <Link href="/settings">Create </Link>
                 </div>}
                 </span>
                 </div>
