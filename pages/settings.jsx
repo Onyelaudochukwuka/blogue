@@ -6,7 +6,7 @@ const settings = () => {
     }
   return (
     <div className="m-auto grid md:grid-cols-4 grid-cols-1">
-        <span className="w-1/3 h-12" style={div1}></span>
+        <span className="w-1/3 h-12 rounded-full cursor-pointer" style={div1} onClick={()=>window.localStorage.setItem('background',div1.backgroundImage)}></span>
     </div>
   )
 }
