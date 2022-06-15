@@ -17,7 +17,7 @@ const Header = () => {
                 <div className="hidden md:float-left md:contents">
                 <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
                 <Image src="/../public/OIP.jfif" width="75px" height= "75px" className="rounded-full inline-block ring-2 ring-white" onClick={()=>setDrop((!drop))}/>
-                { drop && <div className="transition duration-500 ease absolute right-6 flex flex-col bg-white shadow-lg rounded-lg p-4 mb-8">
+                 <div className={`${drop ? `flex` : `hidden`} transition duration-500 ease absolute right-6 flex-col bg-white shadow-lg rounded-lg p-4 mb-8`}>
                     <Link href="/profile"><span className="mb-8 font-black border-b pb-4 md:float-right mt-2 align-middle text-black cursor-pointer hover:text-gray-400 z-10">
                     My Profile
                 </span></Link>
@@ -27,7 +27,7 @@ const Header = () => {
                     <Link href="/create"><span className="mb-8 font-black border-b pb-4 md:float-right mt-2 align-middle text-black cursor-pointer hover:text-gray-400 z-10">
                     Create Post
                 </span></Link>
-                </div>}
+                </div>
                 </span>
                 </div>
             </div>
