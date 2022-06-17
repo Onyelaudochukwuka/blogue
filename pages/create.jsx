@@ -5,17 +5,17 @@ const create = () => {
     const [showSuccessMessage , setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const slugEl = useRef();
-    const contentEl = useRef();
+    const coverTextEl = useRef();
     const handleCommentSubmission = () => {
       
   }
   return (
     <div className="bg-cyan-100 shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
-    <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave A Reply</h3>
+    <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
     
     <div className="grid grid-cols-1 gap-4 mb-4">
     <div className="grid grid-cols-1 gap-4 mb-2">
-        <label htmlFor='title' className="font-bold text-xl">Title</label>
+        <label htmlFor='title' className="font-bold text-xl text-gray-700">Title</label>
       <input 
       type="text"
       ref={titleEl}
@@ -25,6 +25,17 @@ const create = () => {
       placeholder="Title"
       />
       
+        </div>
+        <div className="grid grid-cols-1 gap-4 mb-4">
+          <label for="coverText" className="font-bold text-xl text-gray-700">Cover Text</label>
+      <textarea
+       ref={coverTextEl}
+       id="coverText"
+        className="p-4 outline-none w-full rounded-lg ring-2 ring-cyan-300 focus:ring-2 focus:ring-cyan-500 bg-cyan-100 text-gray-700"
+        placeholder="Cover Text"
+        name="coverText"
+        />
+
     </div>
     </div>
     
@@ -39,15 +50,7 @@ const create = () => {
       </button>
       {showSuccessMessage && <span className="text-xl float-right font-semibold mt-3 text-green-500">Comment submitted for review</span>}
     </div>
-    <div className="grid grid-cols-1 gap-4 mb-4">
-      <textarea
-       ref={contentEl}
-        className="p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-        placeholder="Comment"
-        name="comment"
-        />
-
-    </div>
+    
 </div>
   )
 }
