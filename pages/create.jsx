@@ -10,26 +10,22 @@ const create = () => {
       
   }
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-3/4 m-auto">
+    <div className="bg-cyan-100 shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave A Reply</h3>
     
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+    <div className="grid grid-cols-1 gap-4 mb-4">
+    <div className="grid grid-cols-1 gap-4 mb-4">
+      
+        <label htmlFor='title' className="font-bold text-xl mb-1">Title</label>
       <input 
       type="text"
       ref={titleEl}
       name="name"
-      className="py-2 px-4 outline-gray-900 w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
+      id="title"
+      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-cyan-300 focus:ring-2 focus:ring-cyan-500 bg-cyan-100 text-gray-700"
       placeholder="Title"
       />
-      <input 
-      type="text"
-      ref={slugEl}
-      name="email"
-      className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-      placeholder="slug"
-    //   value={titleEl.current.value ? titleEl.current.value.toLowerCase() : ''}
-      disabled
-      />
+      
     </div>
     
     {error && <p className="text-xs text-red-500">All fields are required.</p>}
