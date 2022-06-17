@@ -14,9 +14,8 @@ const create = () => {
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave A Reply</h3>
     
     <div className="grid grid-cols-1 gap-4 mb-4">
-    <div className="grid grid-cols-1 gap-4 mb-4">
-      
-        <label htmlFor='title' className="font-bold text-xl mb-1">Title</label>
+    <div className="grid grid-cols-1 gap-4 mb-2">
+        <label htmlFor='title' className="font-bold text-xl">Title</label>
       <input 
       type="text"
       ref={titleEl}
@@ -26,6 +25,7 @@ const create = () => {
       placeholder="Title"
       />
       
+    </div>
     </div>
     
     {error && <p className="text-xs text-red-500">All fields are required.</p>}
