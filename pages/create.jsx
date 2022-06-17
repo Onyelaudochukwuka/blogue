@@ -36,6 +36,13 @@ const create = () => {
         name="coverText"
         />
 
+        </div>
+        <div className="grid grid-cols-1 gap-4 mb-4">
+          <label for="coverText" className="font-bold text-xl text-gray-700">Cover Text</label>
+      <input
+      type="image"
+        />
+
     </div>
     </div>
     
