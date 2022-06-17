@@ -38,9 +38,11 @@ const create = () => {
 
         </div>
         <div className="grid grid-cols-1 gap-4 mb-4">
-          <label for="coverText" className="font-bold text-xl text-gray-700">Cover Text</label>
+          <label for="coverText" className="font-bold text-xl text-gray-700">Cover Image</label>
       <input
-      type="image"
+      type="file"
+      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-cyan-300 focus:ring-2 focus:ring-cyan-500 bg-cyan-100 text-gray-700"
+
         />
 
     </div>
