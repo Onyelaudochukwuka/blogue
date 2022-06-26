@@ -1,7 +1,8 @@
 import React, {useState, useRef} from 'react';
 
 const create = () => {
-    const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
+  const [tags, setTags] = useState({});
     const [showSuccessMessage , setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const slugEl = useRef();
@@ -53,6 +54,7 @@ const create = () => {
 
         />
         </div>
+        <div></div>
     </div>
     
     {error && <p className="text-xs text-red-500">All fields are required.</p>}
