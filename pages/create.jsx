@@ -10,7 +10,7 @@ const create = () => {
       
   }
   return (
-    <div className="bg-cyan-100 shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
+    <div className="bg-gray-100 shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
     
     <div className="grid grid-cols-1 gap-4 mb-4">
@@ -21,7 +21,7 @@ const create = () => {
       ref={titleEl}
       name="name"
       id="title"
-      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-cyan-300 focus:ring-2 focus:ring-cyan-500 bg-cyan-100 text-gray-700"
+      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
       placeholder="Title"
       />
       
@@ -31,7 +31,7 @@ const create = () => {
       <textarea
        ref={coverTextEl}
        id="coverText"
-        className="p-4 outline-none w-full rounded-lg ring-2 ring-cyan-300 focus:ring-2 focus:ring-cyan-500 bg-cyan-100 text-gray-700"
+        className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
         placeholder="Cover Text"
         name="coverText"
         />
@@ -41,14 +41,16 @@ const create = () => {
           <label for="coverText" className="font-bold text-xl text-gray-700">Cover Image</label>
       <input
       type="file"
-      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-cyan-300 focus:ring-2 focus:ring-cyan-500 bg-cyan-100 text-gray-700"
+      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
 
         />
 
         </div>
         <div className="">
           <label for="coverText" className="font-bold text-xl text-gray-700">Content</label>
-
+          <textarea placeholder="Cover Text"
+            className="p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
+        />
         </div>
     </div>
     
