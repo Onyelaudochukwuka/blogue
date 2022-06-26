@@ -3,13 +3,14 @@ import React, {useState, useRef} from 'react';
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
-  useSta
+  const [textError, setTextError] = useState(false);
+  const [tlError, setTlError] = useState(false);
     const [showSuccessMessage , setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const slugEl = useRef();
     const coverTextEl = useRef();
   const changeTag = (e) => {
-   const val =  e.key == "Enter" ? setTags((prev)=> [...prev,e.target.value]) : "";
+    const val = tags.indexOf(e.target.value) < 0 ? tags.length <= 5 ? e.key == "Enter" ? setTags((prev) => [...prev, e.target.value]) : "" : (setTextError(true), setTimeout(() => setTextError(false), 3000)) : (setTlError(true), setTimeout(() => setTextError(false),3000));
     console.log(tags);
     }
     const handleCommentSubmission = () => {
@@ -59,11 +60,12 @@ const create = () => {
 
         />
         </div>
-        <div className="w-full relative flex flex-col">
-          <span className="left-2 flex  pl-2 gap-3">{tags ? tags.map((tag)=>(<p className="ml-4 p-3 bg-6">{tag}</p>)) : "" }</span>
+        <div className="w-full flex flex-col gap-4">
+          <span className="left-2 flex gap-3">{tags ? tags.map((tag)=>(<p className="ml-4 p-3 bg-6">{tag}</p>)) : "" }</span>
           <input type="text" placeholder="" 
             className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
           onKeyUp={changeTag}/>
+          {textError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Only 5 categories can be selected</p> }
         </div>
     </div>
     
