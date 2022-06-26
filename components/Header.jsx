@@ -21,9 +21,6 @@ const Header = () => {
                     <Link href="/profile"><span className="mb-8 font-black border-b border-gray-400 pb-4 md:float-right mt-2 align-middle text-black cursor-pointer hover:text-gray-400">
                     My Profile
                 </span></Link>
-                    <Link href="/settings"><span className="mb-8 font-black border-b border-gray-400 pb-4 md:float-right mt-2 align-middle text-black cursor-pointer hover:text-gray-400">
-                    Settings
-                </span></Link>
                     <Link href="/create"><span className="mb-8 font-black border-b border-gray-400 pb-4 md:float-right mt-2 align-middle text-black cursor-pointer hover:text-gray-400">
                     Create Post
                 </span></Link>
