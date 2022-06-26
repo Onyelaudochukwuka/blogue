@@ -3,16 +3,14 @@ import React, {useState, useRef} from 'react';
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
-  const [width, setWidth] = useState(`48px`);
+  useSta
     const [showSuccessMessage , setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const slugEl = useRef();
     const coverTextEl = useRef();
-  const contextEl = useRef();
   const changeTag = (e) => {
    const val =  e.key == "Enter" ? setTags((prev)=> [...prev,e.target.value]) : "";
     console.log(tags);
-    console.log(contextEl)
     }
     const handleCommentSubmission = () => {
       
@@ -61,14 +59,10 @@ const create = () => {
 
         />
         </div>
-        <div className="w-full relative block mx-auto">
-          <span
-          ref={contextEl}
-          className="absolute inset-y-0 left-2 flex items-center pl-2"
-          >{tags ? tags.map((tag) => (<p>{tag}</p>)) : "Text"}</span>
+        <div className="w-full relative flex flex-col">
+          <span className="left-2 flex  pl-2 gap-3">{tags ? tags.map((tag)=>(<p className="ml-4 p-3 bg-6">{tag}</p>)) : "" }</span>
           <input type="text" placeholder="" 
-            className={`block  w-full py-2 pl-[${width}] pr-3 outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700`}
-            
+            className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
           onKeyUp={changeTag}/>
         </div>
     </div>
