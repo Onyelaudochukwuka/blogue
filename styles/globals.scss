@@ -108,11 +108,11 @@ a {
   }
 }
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 15px;
+  height: 15px;
   background-color: rgb(9, 180, 180);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to right bottom, #6d327c, #485DA6, #01b18e);
-  border-radius: 5px;
+  background:  #485DA6;
+  border-radius: 10px;
 }
