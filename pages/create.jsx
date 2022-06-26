@@ -48,7 +48,7 @@ const create = () => {
         </div>
         <div className="">
           <label for="coverText" className="font-bold text-xl text-gray-700">Content</label>
-          
+
         </div>
     </div>
     
