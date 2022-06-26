@@ -62,7 +62,25 @@ const create = () => {
         />
         </div>
         <div className="w-full flex flex-col gap-4">
-          <span className="left-2 grid grid-cols-5 gap-3">{tags ? tags.map((tag)=>(<p key={tag}className="ml-4 p-3 bg-6">{tag}</p>)) : "" }</span>
+          <span className="left-2 grid grid-cols-5 gap-3">{tags ? tags.map((tag) => (<span className="flex p-3 bg-cyan-200">
+            <p key={tag} className="text-xs">{tag}</p>
+            <svg 
+              className="w-3 h-3 align-middle my-auto"
+              viewBox="0 0 297 297" 
+            >
+              <g>
+                <path d="M293.805,219.495l-71.019-71.003l70.998-71.015c4.258-4.259,4.256-11.163-0.002-15.422L234.921,3.194
+		C232.875,1.149,230.101,0,227.209,0c-2.893,0-5.667,1.15-7.712,3.196l-70.999,71.025L77.477,3.219
+		c-4.26-4.258-11.162-4.257-15.422,0.001L3.194,62.081C1.149,64.127,0,66.901,0,69.794c0,2.893,1.15,5.666,3.196,7.711l71.035,71.01
+		L3.248,219.525c-4.257,4.258-4.257,11.16,0,15.419l58.834,58.859c2.045,2.046,4.819,3.196,7.712,3.196h0.001
+		c2.893,0,5.667-1.149,7.712-3.195l71.013-71.029l71.005,70.979c4.258,4.258,11.161,4.258,15.419,0l58.86-58.834
+		c2.046-2.045,3.196-4.819,3.196-7.713C297,224.315,295.851,221.541,293.805,219.495z"
+    fill="#000000"/>
+              </g>
+            </svg>
+
+
+          </span>)) : ""}</span>
           <input type="text" placeholder="" 
             className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
           onKeyUp={changeTag}/>
