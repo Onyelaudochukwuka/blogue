@@ -45,7 +45,11 @@ const create = () => {
 
         />
 
-    </div>
+        </div>
+        <div className="">
+          <label for="coverText" className="font-bold text-xl text-gray-700">Content</label>
+          
+        </div>
     </div>
     
     {error && <p className="text-xs text-red-500">All fields are required.</p>}
