@@ -2,14 +2,21 @@ import React, {useState, useRef} from 'react';
 
 const create = () => {
   const [error, setError] = useState(false);
-  const [tags, setTags] = useState({});
+  const [tags, setTags] = useState([]);
+  const [width, setWidth] = useState(`48px`);
     const [showSuccessMessage , setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const slugEl = useRef();
     const coverTextEl = useRef();
+  const contextEl = useRef();
+  const changeTag = (e) => {
+   const val =  e.key == "Enter" ? setTags((prev)=> [...prev,e.target.value]) : "";
+    console.log(tags);
+    console.log(contextEl)
+    }
     const handleCommentSubmission = () => {
       
-  }
+    }
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
@@ -54,7 +61,16 @@ const create = () => {
 
         />
         </div>
-        <div></div>
+        <div className="w-full relative block mx-auto">
+          <span
+          ref={contextEl}
+          className="absolute inset-y-0 left-2 flex items-center pl-2"
+          >{tags ? tags.map((tag) => (<p>{tag}</p>)) : "Text"}</span>
+          <input type="text" placeholder="" 
+            className={`block  w-full py-2 pl-[${width}] pr-3 outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700`}
+            
+          onKeyUp={changeTag}/>
+        </div>
     </div>
     
     {error && <p className="text-xs text-red-500">All fields are required.</p>}
