@@ -62,7 +62,7 @@ const create = () => {
         />
         </div>
         <div className="w-full flex flex-col gap-4">
-          <span className="left-2 grid grid-cols-5 gap-3">{tags ? tags.map((tag) => (<span className="flex p-3 bg-cyan-200">
+          <span className="left-2 flex flex-row gap-6">{tags ? tags.map((tag) => (<span className="flex p-2 gap-4 rounded-full bg-cyan-200 w-fit">
             <p key={tag} className="text-xs">{tag}</p>
             <svg 
               className="w-3 h-3 align-middle my-auto"
@@ -77,8 +77,6 @@ const create = () => {
     fill="#000000"/>
               </g>
             </svg>
-
-
           </span>)) : ""}</span>
           <input type="text" placeholder="" 
             className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
