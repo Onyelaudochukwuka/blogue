@@ -22,20 +22,19 @@ const create = () => {
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
     
     <div className="grid grid-cols-1 gap-4 mb-4">
-    <div className="grid grid-cols-1 gap-4 mb-2">
-        <label htmlFor='title' className="font-bold text-xl text-gray-700">Title</label>
+    <div className="flex flex-col-reverse gap-4 mb-2">
       <input 
       type="text"
       ref={titleEl}
       name="name"
       id="title"
-      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
+      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
       placeholder="Title"
       />
+        <label htmlFor='title' className="font-bold text-xl text-gray-700">Title</label>
       
         </div>
-        <div className="grid grid-cols-1 gap-4 mb-4">
-          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Cover Text</label>
+        <div className="flex flex-col-reverse gap-4 mb-4">
       <textarea
        ref={coverTextEl}
        id="coverText"
@@ -43,29 +42,32 @@ const create = () => {
         placeholder="Cover Text"
         name="coverText"
         />
+          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Cover Text</label>
 
         </div>
-        <div className="grid grid-cols-1 gap-4 mb-4">
-          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Cover Image</label>
+        <div className="flex flex-col-reverse gap-4 mb-4">
       <input
       type="file"
       className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
 
         />
+          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Cover Image</label>
 
         </div>
-        <div className="">
-          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Content</label>
+        <div className="flex flex-col-reverse">
           <textarea placeholder="Content In Markdown"
             className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 h-72"
 
         />
-        </div>
-        <div className="w-full flex flex-col gap-4">
-          <span className="left-2 flex flex-row gap-6">{tags ? tags.map((tag) => (<span className="flex p-2 gap-4 rounded-full bg-cyan-200 w-fit">
+          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Content</label>
+        </div>  
+        <div className="w-full flex flex-col-reverse gap-4">
+            {textError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Only 5 categories can be selected</p> }
+            {tlError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">You can't enter same category twice</p> }
+          <span className="left-2 flex flex-row">{tags ? tags.map((tag) => (<span className="flex p-2 rounded-lg bg-cyan-200 w-fit ml-6">
             <p key={tag} className="text-xs">{tag}</p>
             <svg 
-              className="w-3 h-3 align-middle my-auto"
+              className="w-3 h-3 align-middle my-auto ml-4"
               viewBox="0 0 297 297" >
               <g>
                 <path d="M293.805,219.495l-71.019-71.003l70.998-71.015c4.258-4.259,4.256-11.163-0.002-15.422L234.921,3.194
@@ -80,9 +82,10 @@ const create = () => {
           </span>)) : ""}</span>
           <input type="text" placeholder="" 
             className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
-          onKeyUp={changeTag}/>
-          {textError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Only 5 categories can be selected</p> }
-          {tlError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">You can't enter same category twice</p> }
+            onKeyUp={changeTag}
+            id="tags"
+          />
+        <label htmlFor="tags">Tags</label>
         </div>
     </div>
     
