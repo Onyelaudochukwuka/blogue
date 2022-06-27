@@ -1,9 +1,11 @@
-import React, {useState, useRef} from 'react';
+import { prevElementSibling } from "domutils";
+import React, {useState, useRef, useEffect} from 'react';
 
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
   const [textError, setTextError] = useState(false);
+  const [text, setText] = useState("");
   const [tlError, setTlError] = useState(false);
     const [showSuccessMessage , setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
@@ -11,12 +13,16 @@ const create = () => {
     const coverTextEl = useRef();
   const changeTag = (e) => {
     if (textError || tlError) return;
-    const val = tags.length <= 4 ? tags.indexOf(e.target.value) < 0 ?  e.key == "Enter" ? setTags((prev) => [...prev, e.target.value]) : "" : (setTlError(true), setTimeout(() => setTlError(false),3000)) : (setTextError(true), setTimeout(() => setTextError(false), 3000));
-    console.log(tags);
+    if (e.target.value == "") return;
+     tags.length <= 4 ? tags.indexOf(e.target.value) < 0 ? e.key == "Enter" ? (setTags((prev) => [...prev, e.target.value]), setText("")) : "" : (setTlError(true), setTimeout(() => setTlError(false), 3000)) : (setTextError(true), setTimeout(() => setTextError(false), 3000));
     }
     const handleCommentSubmission = () => {
       
     }
+  useEffect(() => {
+    setTags(tags);
+  }, [tags])
+  
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
@@ -31,44 +37,54 @@ const create = () => {
       className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
       placeholder="Title"
       />
-        <label htmlFor='title' className="font-bold text-xl text-gray-700">Title</label>
+          <label htmlFor='title' className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Title</label>
       
         </div>
         <div className="flex flex-col-reverse gap-4 mb-4">
       <textarea
        ref={coverTextEl}
        id="coverText"
-        className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
+        className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
         placeholder="Cover Text"
         name="coverText"
         />
-          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Cover Text</label>
+          <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Cover Text</label>
 
         </div>
         <div className="flex flex-col-reverse gap-4 mb-4">
       <input
       type="file"
-      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
+      className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
 
         />
-          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Cover Image</label>
+          <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Cover Image</label>
 
         </div>
         <div className="flex flex-col-reverse">
           <textarea placeholder="Content In Markdown"
-            className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 h-72"
+            className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 h-72 peer"
 
         />
-          <label htmlFor="coverText" className="font-bold text-xl text-gray-700">Content</label>
+          <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Content</label>
         </div>  
         <div className="w-full flex flex-col-reverse gap-4">
             {textError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Only 5 categories can be selected</p> }
             {tlError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">You can't enter same category twice</p> }
-          <span className="left-2 flex flex-row">{tags ? tags.map((tag) => (<span className="flex p-2 rounded-lg bg-cyan-200 w-fit ml-6">
-            <p key={tag} className="text-xs">{tag}</p>
+          <span className="left-2 flex flex-row flex-wrap">{tags ? tags.map((tag) => (<span className="flex p-2 rounded-lg bg-cyan-200 w-fit ml-6" key={tag} >
+            <p className="text-xs">{tag}</p>
             <svg 
               className="w-3 h-3 align-middle my-auto ml-4"
-              viewBox="0 0 297 297" >
+              viewBox="0 0 297 297"
+              onClick={(e) => {
+                setTags((prev) => {
+                  let tags = [...prev];
+                  tags.splice(tags.indexOf(tag), 1)
+                  return tags;
+                })
+
+              }
+              }
+            >
               <g>
                 <path d="M293.805,219.495l-71.019-71.003l70.998-71.015c4.258-4.259,4.256-11.163-0.002-15.422L234.921,3.194
 		C232.875,1.149,230.101,0,227.209,0c-2.893,0-5.667,1.15-7.712,3.196l-70.999,71.025L77.477,3.219
@@ -81,11 +97,13 @@ const create = () => {
             </svg>
           </span>)) : ""}</span>
           <input type="text" placeholder="" 
-            className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700"
+            className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
             onKeyUp={changeTag}
             id="tags"
           />
-        <label htmlFor="tags">Tags</label>
+          <label htmlFor="tags" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Tags</label>
         </div>
     </div>
     
