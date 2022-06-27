@@ -9,21 +9,46 @@ const create = () => {
   const [tlError, setTlError] = useState(false);
     const [showSuccessMessage , setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
-    const slugEl = useRef();
     const coverTextEl = useRef();
     const contentEl = useRef();
+    const fileEl = useRef();
   const changeTag = (e) => {
     if (textError || tlError) return;
     if (e.target.value == "") return;
      tags.length <= 4 ? tags.indexOf(e.target.value) < 0 ? e.key == "Enter" ? (setTags((prev) => [...prev, e.target.value]), setText("")) : "" : (setTlError(true), setTimeout(() => setTlError(false), 3000)) : (setTextError(true), setTimeout(() => setTextError(false), 3000));
-    }
+  }
+  const parser = (arg) => {
+    const length = arg.toLowerCase().replace(' ', '-');
+
+    return length.indexOf(' ') > 0 ? parser(length) : length;
+  }
     const handleCommentSubmission = () => {
-      
+      const { value: title } = titleEl.current;
+      const { value: content } = contentEl.current;
+      const { value: excerpt } = coverTextEl.current;
+      const { files: featuredImage } = fileEl.current;
+      const slug = parser(title);
+      const featredPost = true;
+      const category = tags.map((tag) => {
+        return {
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          name: tag,
+          slug: parser(tag),
+          posts: '',
+        }
+      })
+      console.log(category);
+      const postObj = {
+        title,
+        content,
+        excerpt,
+        featuredImage,
+        slug,
+        excerpt
+        
+      }
     }
-  useEffect(() => {
-    setTags(tags);
-  }, [tags])
-  
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
@@ -56,7 +81,7 @@ const create = () => {
       <input
       type="file"
       className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
-
+      ref={fileEl}
         />
           <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Cover Image</label>
 
@@ -64,7 +89,7 @@ const create = () => {
         <div className="flex flex-col-reverse">
           <textarea placeholder="Content In Markdown"
             className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 h-72 peer"
-
+            ref={contentEl}
         />
           <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Content</label>
         </div>  
@@ -97,7 +122,7 @@ const create = () => {
               </g>
             </svg>
           </span>)) : ""}</span>
-          <input type="text" placeholder="" 
+          <input type="text" placeholder="Tags" 
             className="p-4  outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
             onChange={(e) => setText(e.target.value)}
             value={text}
