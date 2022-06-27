@@ -11,6 +11,7 @@ const create = () => {
     const titleEl = useRef();
     const slugEl = useRef();
     const coverTextEl = useRef();
+    const contentEl = useRef();
   const changeTag = (e) => {
     if (textError || tlError) return;
     if (e.target.value == "") return;
