@@ -3,7 +3,7 @@ import React from 'react'
 const Boldmark = (props) => {
   return (
     <pre {...props.attributes}>
-      <strong>{children}</strong>
+      <strong>{props.children}</strong>
     </pre>
   )
 }
