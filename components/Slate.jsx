@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createEditor } from "slate";
-import { Slate, Editable, withReact } from "slate-react";
-const Slate = () => {
+import { Slate, Editor, withReact } from "slate-react";
+const Slat = () => {
     const editor = useMemo(() => withReact(createEditor()), []);
     const [value, setValue] = useState([
         {
@@ -9,6 +9,23 @@ const Slate = () => {
             children: [{ text: "We have some base content." }]
         }
     ]);
+    const onKeyDown = (e,change) => {
+        if (!e.ctrlKey) return;
+        e.preventDefault();
+        switch (e.key) {
+            case 'b': {
+                change.addMark('bold');
+                return true;
+            }
+                
+        }
+    }
+    const renderMark = ({mark}) => {
+        switch (mark.type) {
+            case 'bold':
+                
+        }
+    }
   return (
       <div>
           <Slate
@@ -18,10 +35,11 @@ const Slate = () => {
                   console.log(newValue)
                   setValue(newValue)
               }}
+              onKeyDown={onKeyDown}
           >
-              <Editable style={{ border: "1px solid black" }} />
+              <Editor style={{ border: "1px solid black" }} />
           </Slate>
       </div>  )
 }
 
-export default Slate
+export default Slat;
