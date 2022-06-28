@@ -6,20 +6,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "@graphcms/html-to-slate-ast": "^0.12.0",
-    "@graphcms/rich-text-react-renderer": "^0.5.0",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
     "html-react-parser": "^1.4.13",
-    "jsdom": "^16.7.0",
     "moment": "^2.29.3",
+    "net": "^1.0.2",
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-multi-carousel": "^2.8.0",
-    "sass": "^1.52.1",
-    "slate": "^0.65.3",
-    "slate-hyperscript": "^0.62.0"
+    "sass": "^1.52.1"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
