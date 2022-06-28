@@ -1,7 +1,5 @@
 import { prevElementSibling } from "domutils";
 import React, {useState, useRef, useEffect} from 'react';
-import { htmlToSlateAST } from '@graphcms/html-to-slate-ast';
-
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -29,7 +27,7 @@ const create = () => {
   }
   const handleCommentSubmission = () => {
     const { value: title } = titleEl.current;
-    const { value: cont } = contentEl.current;
+    const { value: content } = contentEl.current;
     const { value: excerpt } = coverTextEl.current;
     const { files: file } = fileEl.current;
     const { 0: featuredImage } = file;
@@ -84,7 +82,6 @@ const create = () => {
           posts: '',
         }
       })
-    const content = htmlToSlateAST(cont);
       const postObj = {
         title,
         content,
