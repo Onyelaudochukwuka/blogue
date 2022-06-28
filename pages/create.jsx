@@ -66,7 +66,7 @@ const create = () => {
           setCoverTextError(false);
         }, 3000);
       }
-      if (!featuredImage || featuredImage.type.indexOf("image")) {
+      if (!featuredImage || featuredImage.type.indexOf("image") < 0) {
         setFileError(true);
         setTimeout(() => {
           setFileError(false);
@@ -98,7 +98,8 @@ const create = () => {
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
     
     <div className="grid grid-cols-1 gap-4 mb-4">
-    <div className="flex flex-col-reverse gap-4 mb-2">
+        <div className="flex flex-col-reverse gap-4 mb-2">
+        {titleError && <span className="text-red-400 text-xs">Cover text is required</span>}
       <input 
       type="text"
       ref={titleEl}
@@ -123,7 +124,7 @@ const create = () => {
 
         </div>
         <div className="flex flex-col-reverse gap-4 mb-4">
-          {fileError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">please Select a file</p>}
+          {fileError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Select A Valid File</p>}
       <input
       type="file"
       className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
@@ -133,6 +134,7 @@ const create = () => {
 
         </div>
         <div className="flex flex-col-reverse">
+          {contentError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Enter Atleast 160 characters</p>}
           <textarea placeholder="Content In Markdown"
             className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 h-72 peer"
             ref={contentEl}
