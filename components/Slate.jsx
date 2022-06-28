@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createEditor } from "slate";
 import { Slate, Editor, withReact } from "slate-react";
+import { BoldMark } from './Slate';
 const Slat = () => {
     const editor = useMemo(() => withReact(createEditor()), []);
     const [value, setValue] = useState([
@@ -20,10 +21,10 @@ const Slat = () => {
                 
         }
     }
-    const renderMark = ({mark}) => {
-        switch (mark.type) {
+    const renderMark = (props) => {
+        switch (props.mark.type) {
             case 'bold':
-                
+                return <BoldMark {...props} />
         }
     }
   return (
@@ -36,6 +37,7 @@ const Slat = () => {
                   setValue(newValue)
               }}
               onKeyDown={onKeyDown}
+              renderMark={renderMark}
           >
               <Editor style={{ border: "1px solid black" }} />
           </Slate>
