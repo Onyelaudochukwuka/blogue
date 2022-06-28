@@ -4,7 +4,7 @@ import React, {useState, useRef, useEffect} from 'react';
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
-  const [titleError, settitleError] = useState(false);
+  const [titleError, setTitleError] = useState(false);
   const [contentError, setContentError] = useState(false);
   const [coverTextError, setCoverTextError] = useState(false);
   const [fileError, setFileError] = useState(false);
@@ -30,11 +30,48 @@ const create = () => {
     const { value: title } = titleEl.current;
     const { value: content } = contentEl.current;
     const { value: excerpt } = coverTextEl.current;
-    const { files: featuredImage } = fileEl.current;
+    const { files: file } = fileEl.current;
+    const { 0: featuredImage } = file;
+
     const slug = parser(title);
     const featredPost = true;
+    console.log(featuredImage,Object.keys(file));
+
     if (!title || !content || content.length < 160 || !excerpt || !featuredImage) {
-      
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      if (!title) {
+        setTitleError(true);
+        setTimeout(() => {
+          setTitleError(false);
+        }, 3000);
+      }
+      if (!content) {
+        setContentError(true);
+        setTimeout(() => {
+          setContentError(false);
+        }, 3000);
+      }
+      if (!content || content.length < 160) {
+        setContentError(true);
+        setTimeout(() => {
+          setContentError(false);
+        }, 3000);
+      }
+      if (!excerpt) {
+        setCoverTextError(true);
+        setTimeout(() => {
+          setCoverTextError(false);
+        }, 3000);
+      }
+      if (!featuredImage || featuredImage.type.indexOf("image")) {
+        setFileError(true);
+        setTimeout(() => {
+          setFileError(false);
+        }, 3000);
+      }
       return;
     }
       const category = tags.map((tag) => {
@@ -46,7 +83,6 @@ const create = () => {
           posts: '',
         }
       })
-      console.log(category);
       const postObj = {
         title,
         content,
@@ -75,6 +111,7 @@ const create = () => {
       
         </div>
         <div className="flex flex-col-reverse gap-4 mb-4">
+          {coverTextError && <span className="text-red-400 text-xs">Cover text is required</span>}
       <textarea
        ref={coverTextEl}
        id="coverText"
@@ -86,6 +123,7 @@ const create = () => {
 
         </div>
         <div className="flex flex-col-reverse gap-4 mb-4">
+          {fileError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">please Select a file</p>}
       <input
       type="file"
       className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
