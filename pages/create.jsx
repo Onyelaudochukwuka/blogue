@@ -1,5 +1,5 @@
-import { prevElementSibling } from "domutils";
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { submitPost } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -10,7 +10,7 @@ const create = () => {
   const [textError, setTextError] = useState(false);
   const [text, setText] = useState("");
   const [tlError, setTlError] = useState(false);
-    const [showSuccessMessage , setShowSuccessMessage] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const coverTextEl = useRef();
     const contentEl = useRef();
@@ -87,11 +87,15 @@ const create = () => {
         content,
         excerpt,
         featuredImage,
-        slug,
-        excerpt
+        featredPost,
+        slug
         
       }
-    console.log(content);
+    submitPost(postObj)
+      .then((res) => {
+        setShowSuccessMessage(true);
+        setTimeout(() => { setShowSuccessMessage(false), 3000 })
+    })
     }
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
@@ -192,7 +196,7 @@ const create = () => {
       </button>
       {showSuccessMessage && <span className="text-xl float-right font-semibold mt-3 text-green-500">Comment submitted for review</span>}
     </div>
-    
+ 
 </div>
   )
 }
