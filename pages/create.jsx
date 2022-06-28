@@ -4,6 +4,10 @@ import React, {useState, useRef, useEffect} from 'react';
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
+  const [titleError, settitleError] = useState(false);
+  const [contentError, setContentError] = useState(false);
+  const [coverTextError, setCoverTextError] = useState(false);
+  const [fileError, setFileError] = useState(false);
   const [textError, setTextError] = useState(false);
   const [text, setText] = useState("");
   const [tlError, setTlError] = useState(false);
@@ -22,13 +26,17 @@ const create = () => {
 
     return length.indexOf(' ') > 0 ? parser(length) : length;
   }
-    const handleCommentSubmission = () => {
-      const { value: title } = titleEl.current;
-      const { value: content } = contentEl.current;
-      const { value: excerpt } = coverTextEl.current;
-      const { files: featuredImage } = fileEl.current;
-      const slug = parser(title);
-      const featredPost = true;
+  const handleCommentSubmission = () => {
+    const { value: title } = titleEl.current;
+    const { value: content } = contentEl.current;
+    const { value: excerpt } = coverTextEl.current;
+    const { files: featuredImage } = fileEl.current;
+    const slug = parser(title);
+    const featredPost = true;
+    if (!title || !content || content.length < 160 || !excerpt || !featuredImage) {
+      
+      return;
+    }
       const category = tags.map((tag) => {
         return {
           createdAt: Date.now(),
