@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { submitPost } from '../services'
+import { Slate } from '../components'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -196,7 +197,7 @@ const create = () => {
       </button>
       {showSuccessMessage && <span className="text-xl float-right font-semibold mt-3 text-green-500">Comment submitted for review</span>}
     </div>
- 
+ <Slate />
 </div>
   )
 }

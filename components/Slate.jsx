@@ -1,21 +1,22 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { createEditor } from "slate";
-import { Slate, Editor, withReact } from "slate-react";
-import { BoldMark } from './Slate';
+import { createEditor, Editor, Transforms } from "slate";
+import { Boldmark } from './Slate'
+import { Slate, withReact, Editable } from "slate-react";
 const Slat = () => {
-    const editor = useMemo(() => withReact(createEditor()), []);
-    const [value, setValue] = useState([
-        {
-            type: "paragraph",
-            children: [{ text: "We have some base content." }]
-        }
+    const editorRef = useRef();
+    if (!editorRef.current) editorRef.current = withReact(createEditor());
+    const editor = editorRef.current;
+    const [value, setValue] = useState([{
+        type: "paragraph",
+        children: [{ text: "We have some base content." }]
+    }
     ]);
     const onKeyDown = (e,change) => {
-        if (!e.ctrlKey) return;
-        e.preventDefault();
+        
         switch (e.key) {
-            case 'b': {
-                change.addMark('bold');
+            case '&': {
+                e.preventDefault();
+                editor.insertText('and');
                 return true;
             }
                 
@@ -24,7 +25,7 @@ const Slat = () => {
     const renderMark = (props) => {
         switch (props.mark.type) {
             case 'bold':
-                return <BoldMark {...props} />
+                return <Boldmark {...props} />
         }
     }
   return (
@@ -32,14 +33,19 @@ const Slat = () => {
           <Slate
               editor={editor}
               value={value}
+              renderMark={renderMark}
               onChange={(newValue) => {
                   console.log(newValue)
-                  setValue(newValue)
+                  return setValue(newValue)
+
               }}
-              onKeyDown={onKeyDown}
-              renderMark={renderMark}
           >
-              <Editor style={{ border: "1px solid black" }} />
+              <Editable
+                  
+                  onKeyDown={onKeyDown}
+                  style={{ border: "1px solid black" }}
+              
+              />
           </Slate>
       </div>  )
 }

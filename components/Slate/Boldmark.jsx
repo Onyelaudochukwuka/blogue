@@ -1,8 +1,10 @@
 import React from 'react'
 
-const Boldmark = ({children}) => {
+const Boldmark = (props) => {
   return (
-      <strong>{ children }</strong>
+    <pre {...props.attributes}>
+      <strong>{children}</strong>
+    </pre>
   )
 }
 
