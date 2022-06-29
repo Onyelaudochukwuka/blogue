@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { createEditor, Editor, Transforms } from "slate";
-import { Boldmark } from './Slate'
 import { Slate, withReact, Editable } from "slate-react";
 const Slat = () => {
     const editorRef = useRef();
@@ -70,9 +69,23 @@ const Slat = () => {
 }
 
 
-
-const DefaultElement = props => {
+const CodeElement = props => {
+    return (
+        <pre {...props.attributes}>
+            <code>{props.children}</code>
+        </pre>
+    )
+};
+const DefaultElement = (props) => {
     return <p {...props.attributes}>{props.children}</p>
+
+}
+const BoldElement = (props) => {
+    return (
+        <pre {...props.attributes}>
+            <strong>{props.children}</strong>
+        </pre>
+    )
 }
 
 export default Slat;
