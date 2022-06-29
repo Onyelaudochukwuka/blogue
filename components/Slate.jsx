@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
-import { createEditor, Editor, Transforms } from "slate";
+import { createEditor, Editor, Transforms, Text } from "slate";
 import { Slate, withReact, Editable } from "slate-react";
 const Slat = () => {
     const editorRef = useRef();
@@ -14,11 +14,16 @@ const Slat = () => {
         switch (props.element.type) {
             case 'code':
                 return <CodeElement {...props} />
+            case 'bold':
+                return <BoldElement {...props} />
             default:
                 return <DefaultElement {...props} />
         }
     }, [])
-
+    // Define a leaf rendering function that is memoized with `useCallback`.
+    const renderLeaf = useCallback(props => {
+        return <Leaf {...props} />
+    }, []);
     return (
         <Slate editor={editor} value={value}
             onChange={(newValue) => {
@@ -29,6 +34,7 @@ const Slat = () => {
             <Editable
                 // Pass in the `renderElement` function.
                 renderElement={renderElement}
+                renderLeaf={renderLeaf}
                 onKeyDown={(event) => {
                     if (!event.ctrlKey) {
                         return
@@ -85,6 +91,17 @@ const BoldElement = (props) => {
         <pre {...props.attributes}>
             <strong>{props.children}</strong>
         </pre>
+    )
+}
+// Define a React component to render leaves with bold text.
+const Leaf = props => {
+    return (
+        <span
+            {...props.attributes}
+            style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
+        >
+            {props.children}
+        </span>
     )
 }
 
