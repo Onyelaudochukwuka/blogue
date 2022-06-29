@@ -69,13 +69,7 @@ const Slat = () => {
     )
 }
 
-const CodeElement = props => {
-    return (
-        <pre {...props.attributes}>
-            <code>{props.children}</code>
-        </pre>
-    )
-}
+
 
 const DefaultElement = props => {
     return <p {...props.attributes}>{props.children}</p>
