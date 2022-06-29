@@ -61,19 +61,11 @@ const Slat = () => {
     const renderLeaf = useCallback(props => {
         return <Leaf {...props} />
     }, []);
-            
     return (
-            <Slate editor={editor} value={value}
+        <Slate editor={editor} value={value}
             onChange={(newValue) => {
                 console.log(newValue);
-                const isAstChange = editor.operations.some(
-                    op => 'set_selection' !== op.type
-                )
-                if (isAstChange) {
-                    // Save the value to Local Storage.
-                    const content = JSON.stringify(value)
-                    localStorage.setItem('content', content)
-                }
+                
                 setValue(newValue);
         }}
         >
