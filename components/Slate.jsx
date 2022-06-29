@@ -10,6 +10,43 @@ const Slat = () => {
         children: [{ text: "We have some base content." }]
     }
     ]);
+    const CustomEditor = {
+        isBoldMarkActive(editor) {
+            const [match] = Editor.nodes(editor, {
+                match: n => n.bold === true,
+                universal: true,
+            })
+
+            return !!match
+        },
+
+        isCodeBlockActive(editor) {
+            const [match] = Editor.nodes(editor, {
+                match: n => n.type === 'code',
+            })
+
+            return !!match
+        },
+
+        toggleBoldMark(editor) {
+            const isActive = CustomEditor.isBoldMarkActive(editor)
+            Transforms.setNodes(
+                editor,
+                { bold: isActive ? null : true },
+                { match: n => Text.isText(n), split: true }
+            )
+        },
+
+        toggleCodeBlock(editor) {
+            const isActive = CustomEditor.isCodeBlockActive(editor)
+            Transforms.setNodes(
+                editor,
+                { type: isActive ? null : 'code' },
+                { match: n => Editor.isBlock(editor, n) }
+            )
+        },
+    }
+
     const renderElement = useCallback(props => {
         switch (props.element.type) {
             case 'code':
@@ -24,13 +61,40 @@ const Slat = () => {
     const renderLeaf = useCallback(props => {
         return <Leaf {...props} />
     }, []);
+            
     return (
-        <Slate editor={editor} value={value}
+            <Slate editor={editor} value={value}
             onChange={(newValue) => {
                 console.log(newValue);
+                const isAstChange = editor.operations.some(
+                    op => 'set_selection' !== op.type
+                )
+                if (isAstChange) {
+                    // Save the value to Local Storage.
+                    const content = JSON.stringify(value)
+                    localStorage.setItem('content', content)
+                }
                 setValue(newValue);
         }}
         >
+            <div>
+                <button
+                    onMouseDown={event => {
+                        event.preventDefault()
+                        CustomEditor.toggleBoldMark(editor)
+                    }}
+                >
+                    Bold
+                </button>
+                <button
+                    onMouseDown={event => {
+                        event.preventDefault()
+                        CustomEditor.toggleCodeBlock(editor)
+                    }}
+                >
+                    Code Block
+                </button>
+            </div>
             <Editable
                 // Pass in the `renderElement` function.
                 renderElement={renderElement}
@@ -40,31 +104,17 @@ const Slat = () => {
                         return
                     }
 
+                    // Replace the `onKeyDown` logic with our new commands.
                     switch (event.key) {
-                        // When "`" is pressed, keep our existing code block logic.
-                        case '/': {
+                        case '.': {
                             event.preventDefault()
-                            const [match] = Editor.nodes(editor, {
-                                match: n => n.type === 'code',
-                            })
-                            Transforms.setNodes(
-                                editor,
-                                { type: match ? 'paragraph' : 'code' },
-                                { match: n => Editor.isBlock(editor, n) }
-                            )
+                            CustomEditor.toggleCodeBlock(editor)
                             break
                         }
 
-                        // When "B" is pressed, bold the text in the selection.
                         case 'b': {
                             event.preventDefault()
-                            Transforms.setNodes(
-                                editor,
-                                { bold: true },
-                                // Apply it to text nodes, and split the text node up if the
-                                // selection is overlapping only part of it.
-                                { match: n => Text.isText(n), split: true }
-                            )
+                            CustomEditor.toggleBoldMark(editor)
                             break
                         }
                     }
