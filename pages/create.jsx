@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { submitPost } from '../services'
-import { Slate } from '../components'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -11,6 +10,7 @@ const create = () => {
   const [textError, setTextError] = useState(false);
   const [text, setText] = useState("");
   const [tlError, setTlError] = useState(false);
+  const [value, setValue] = useState("")
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const coverTextEl = useRef();
@@ -35,7 +35,6 @@ const create = () => {
 
     const slug = parser(title);
     const featredPost = true;
-    console.log(featuredImage,Object.keys(file));
 
     if (!title || !content || content.length < 160 || !excerpt || !featuredImage) {
       setError(true);
@@ -92,10 +91,11 @@ const create = () => {
         slug
         
       }
+    console.log(postObj);
     submitPost(postObj)
-      .then((res) => {
+      .then(() => {
         setShowSuccessMessage(true);
-        setTimeout(() => { setShowSuccessMessage(false), 3000 })
+        setTimeout(() => { setShowSuccessMessage(false) }, 5000 )
     })
     }
   return (
@@ -133,15 +133,19 @@ const create = () => {
       <input
       type="file"
       className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
-      ref={fileEl}
-        />
+            ref={fileEl}
+            accept="image/*"
+          />
           <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Cover Image</label>
 
         </div>
-        <div className="flex flex-col-reverse">
+        <div className="flex flex-col-reverse gap-4">
           {contentError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Enter Atleast 160 characters</p>}
+          <span className="p-3 bg-yellow-300 rounded-full w-10 h-10 my-auto align-middle">{value.length}</span>
           <textarea placeholder="Content In Markdown"
             className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 h-72 peer"
+            value={value}
+            onChange={(e)=>setValue(e.target.value)}
             ref={contentEl}
         />
           <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Content</label>
@@ -197,7 +201,6 @@ const create = () => {
       </button>
       {showSuccessMessage && <span className="text-xl float-right font-semibold mt-3 text-green-500">Comment submitted for review</span>}
     </div>
- <Slate />
 </div>
   )
 }

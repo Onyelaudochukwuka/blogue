@@ -7,14 +7,22 @@ export default async function comments(req, res) {
         }
     });
     const query = gql`
-  mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $content: RichTextAST!, $featredPost: Boolean!, $featuredImage: AssetCreateOneInlineInput!) {
-    createPost(data: {title: $title, slug: $slug, content: $content,excerpt: $excerpt,featredPost: $featredPost,featuredImage:$featuredImage, categories: {connect: {slug: $slug}}}) { id }   
+mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featredPost: Boolean!, $text: String!) {
+  createPost(
+    data: {title: $title, slug: $slug, excerpt: $excerpt, featredPost: $featredPost, text: $text}
+  ) {
+    excerpt
+    featredPost
+    slug
+    title
+    text
+  }
 }
 `;
     try {
         const result = await graphQlClient.request(query, {
             title: req.body.title,
-            content: req.body.content,
+            text: req.body.content,
             excerpt: req.body.excerpt,
             featuredImage: req.body.featuredImage,
             featredPost: req.body.featredPost,

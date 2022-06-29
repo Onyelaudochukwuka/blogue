@@ -24,13 +24,14 @@ else{
       {relatedPosts.map((post)=>(
         <div key={post.title} className="flex items-center w-full mb-4">
             <div className="w-16 flex-none">
-              <img 
+            {post.featuredImage && <img
               alt={post.title}
               height="60px"
               width="60px"
               className="align-middle rounded-full"
               src={post.featuredImage.url}
-              />
+            />
+            }
             </div>
             <div className="flex-grow ml-4">
           <p className="text-gray-500 text-xs">
