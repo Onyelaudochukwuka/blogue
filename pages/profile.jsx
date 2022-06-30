@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { submitAuthor, submitImage } from '../services';
+import { publishAuthor, publishImage, submitAuthor, submitImage } from '../services';
 const profile = () => {
   let [error, setError] = useState(false);
   let [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -38,8 +38,14 @@ const profile = () => {
     }
     submitImage(photo)
       .then((res) => res.id)
-      .then((photo) => submitAuthor(objCreate(name, bio, photo)))
-      .then((res) => setRes(res))
+      .then((photo) => {
+        publishImage(photo);
+        return submitAuthor(objCreate(name, bio, photo));
+      })
+      .then((res) => {
+        publishAuthor({ id: res.createAuthor.id });
+        setRes(res)
+      })
       .then((res) => {
         setShowSuccessMessage(true);
         setTimeout(() => { setShowSuccessMessage(false) }, 3000)

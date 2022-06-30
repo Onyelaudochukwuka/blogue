@@ -184,7 +184,17 @@ export const submitImage = async (url) => {
       url
     )}`,
   }
-const  result = await fetch('https://api-ap-south-1.graphcms.com/v2/cl3xen24r0fhv01v08owa0qu7/master/upload', options)
+  const result = await fetch('https://api-ap-south-1.graphcms.com/v2/cl3xen24r0fhv01v08owa0qu7/master/upload', options);
+  return result.json();
+}
+export const publishImage = async (obj) => {
+  const result = await fetch('/api/publishImage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
   return result.json();
 }
 export const getComments = async (slug) =>{
