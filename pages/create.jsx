@@ -40,7 +40,6 @@ const create = () => {
     return length.indexOf(' ') > 0 ? parser(length) : length;
   }
   const handleCommentSubmission = () => {
-    setLoading(true);
     const { value: title } = titleEl.current;
     const { value: content } = contentEl.current;
     const { value: excerpt } = coverTextEl.current;
@@ -48,24 +47,26 @@ const create = () => {
     const slug = parser(title);
     const featredPost = true;
 
-    if (!title || !content || content.length < 160 || !excerpt || !featuredImage) {
+    if (!title || content.length < 160 || !excerpt || !featuredImage) {
       setError(true);
       setTimeout(() => {
         setError(false);
       }, 3000);
+      setLoading(false);
       if (!title) {
         setTitleError(true);
         setTimeout(() => {
           setTitleError(false);
         }, 3000);
       }
+      setLoading(false);
       if (!content) {
         setContentError(true);
         setTimeout(() => {
           setContentError(false);
         }, 3000);
       }
-      if (!content || content.length < 160) {
+      if ( content.length < 160) {
         setContentError(true);
         setTimeout(() => {
           setContentError(false);
@@ -86,6 +87,8 @@ const create = () => {
       setLoading(false);
       return;
     }
+
+    setLoading(true);
     var author = JSON.parse(window.localStorage.getItem('author')).createAuthor.id;
     const objCreate = (title,
       content,
@@ -209,8 +212,8 @@ const create = () => {
         </div>
         <div className="flex flex-col-reverse gap-4">
           {contentError && <p className="text-red-400 text-xs mt-4 transition-all duration-500 ease">Enter Atleast 160 characters</p>}
-          <span className="p-3 bg-yellow-300 rounded-full w-10 h-10 my-auto align-middle">{value.length}</span>
-          <textarea placeholder="Content In Markdown"
+            <span className="p-3 text-white  text-center rounded-full w-fit h-fit my-auto align-middle" style={{ backgroundColor: value.length > 160 ? "rgb(253 224 71)" : "red"}}>{value.length}</span>
+          <textarea placeholder="160 characters min"
             className="p-4 outline-none w-full rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 h-72 peer"
             value={value}
             onChange={(e)=>setValue(e.target.value)}
