@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { submitAuthor, submitComment } from '../services';
+import { submitAuthor, submitImage } from '../services';
 const profile = () => {
   let [error, setError] = useState(false);
   let [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [res, setRes] = useState("")
   const bioEl = useRef();
   const nameEl = useRef();
   const emailEl = useRef();
@@ -10,6 +11,9 @@ const profile = () => {
     nameEl.current.value = window.localStorage.getItem('name');
     emailEl.current.value = window.localStorage.getItem('email');
   }, [])
+  useEffect(() => {
+    window.localStorage.setItem("author", JSON.stringify(res));
+  },[res])
   const handleCommentSubmission = () => {
     setError(false);
     const { value: bio } = bioEl.current;
@@ -22,7 +26,20 @@ const profile = () => {
     const authorObj = {
       name, photo, bio
     }
-    submitAuthor(authorObj)
+    const objCreate = (name,
+      bio,
+      photo
+    ) => {
+      return {
+        name,
+        bio,
+        photo
+      }
+    }
+    submitImage(photo)
+      .then((res) => res.id)
+      .then((photo) => submitAuthor(objCreate(name, bio, photo)))
+      .then((res) => setRes(res))
       .then((res) => {
         setShowSuccessMessage(true);
         setTimeout(() => { setShowSuccessMessage(false) }, 3000)
