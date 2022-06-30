@@ -19,10 +19,10 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="float-left contents">
-                <span className="float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
-                          <Image src={`${!details ? `https://www.pngmart.com/files/10/User-Account-PNG-Clipart.png`: details.photo }`}
+                      <span className="float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer" tabIndex={12} onFocus={() => setDrop((drop) => !drop)} onBlur={() => setDrop(false)} >
+                          <Image src={`${!details ? `https://www.pngmart.com/files/10/User-Account-PNG-Clipart.png` : details.photo}`}
                               unoptimized
-                              width="75px" height="75px" className="rounded-full inline-block ring-2 ring-white z-10" onClick={() => setDrop((!drop))} />
+                              width="75px" height="75px" className="rounded-full inline-block ring-2 ring-white z-10"/>
                  <div className={`${drop ? `flex` : `hidden`} transition duration-500 ease absolute right-6 flex-col bg-white shadow-lg rounded-lg p-4 mb-8 z-10`}>
                     <Link href="/profile"><span className="mb-8 font-black border-b border-gray-400 pb-4 md:float-right mt-2 align-middle text-black cursor-pointer hover:text-gray-400">
                     My Profile
