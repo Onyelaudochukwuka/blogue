@@ -27,7 +27,8 @@ mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featred
             excerpt: req.body.excerpt,
             featuredImage: req.body.featuredImage,
             featredPost: req.body.featredPost,
-            slug: req.body.slug
+            slug: req.body.slug,
+            author: req.body.author
         });
         return res.status(200).send(result);
     }

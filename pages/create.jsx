@@ -24,8 +24,10 @@ const create = () => {
      tags.length <= 4 ? tags.indexOf(e.target.value) < 0 ? e.key == "Enter" ? (setTags((prev) => [...prev, e.target.value]), setText("")) : "" : (setTlError(true), setTimeout(() => setTlError(false), 3000)) : (setTextError(true), setTimeout(() => setTextError(false), 3000));
   }
   useEffect(() => {
-    setAuthor(window.localStorage.getItem('author'));
-    console.log(author);
+    setInterval(() => {
+      setAuthor(()=>JSON.parse(window.localStorage.getItem('author')));
+      console.log(author)
+    },5000);
   }, [])
   
   const parser = (arg) => {
@@ -92,19 +94,23 @@ const create = () => {
     const image = {
       url
     }
+    var author = JSON.parse(window.localStorage.getItem('author')).createAuthor.id;
     const objCreate = (title,
       content,
       excerpt,
       featredPost,
       slug,
-    featuredImage) => {
+      featuredImage,
+      author
+    ) => {
       return {
         title,
         content,
         excerpt,
         featredPost,
         slug,
-        featuredImage
+        featuredImage,
+        author
       }
     }
     console.log(objCreate(23, 4, 5, 67, 7,8));
@@ -124,7 +130,7 @@ const create = () => {
         featredPost,
         slug,
         res,
-        
+        author
       )))
       .then((res)=>console.log(res))
       .then(() => {
