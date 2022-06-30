@@ -37,7 +37,7 @@ const PostDetail = ({ post }) => {
         </div>
       </div>
       <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
-        {post.text}
+      <p className="leading-loose">{post.text}</p>
     </div>
   )
 }
