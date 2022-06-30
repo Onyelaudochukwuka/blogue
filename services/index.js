@@ -197,6 +197,16 @@ export const publishImage = async (obj) => {
   });
   return result.json();
 }
+export const publishPost = async (obj) => {
+  const result = await fetch('/api/publishPost', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
+  return result.json();
+}
 export const getComments = async (slug) =>{
   const query = gql`
   query GetComments($slug: String!) {

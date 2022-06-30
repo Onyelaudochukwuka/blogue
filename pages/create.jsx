@@ -1,5 +1,5 @@
 import React, { useState, useRef,useEffect } from 'react';
-import { submitPost, submitImage, submitCategory, publishImage } from '../services'
+import { submitPost, submitImage, submitCategory, publishImage, publishPost } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -40,8 +40,6 @@ const create = () => {
     const { value: content } = contentEl.current;
     const { value: excerpt } = coverTextEl.current;
     const { value: featuredImage } = fileEl.current;
-    // const { files: file } = fileEl.current;
-    // const { 0: featuredImage } = file;
     const slug = parser(title);
     const featredPost = true;
 
@@ -82,15 +80,6 @@ const create = () => {
       }
       return;
     }
-      const category = tags.map((tag) => {
-        return {
-          name: tag,
-          slug: parser(tag)
-        }
-      })
-    const image = {
-      url
-    }
     var author = JSON.parse(window.localStorage.getItem('author')).createAuthor.id;
     const objCreate = (title,
       content,
@@ -113,7 +102,7 @@ const create = () => {
     submitImage(featuredImage)
       .then((res)=>res.id)
       .then((res) => {
-        publishImage(res);
+        publishImage({ id: res});
        return submitPost(objCreate(title,
           content,
           excerpt,
@@ -126,6 +115,7 @@ const create = () => {
       .then((res) => res.createPost)
       .then((res) => res.id)
       .then((res) => {
+        publishPost({id: res });
         tags.map((tag) => {
           const categoryObj = {
             name: tag,
