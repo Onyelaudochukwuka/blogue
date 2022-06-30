@@ -14,8 +14,8 @@ const create = () => {
   const [value, setValue] = useState("")
   const [author, setAuthor] = useState("")
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [categories, setCategories] = useState([]);
   const [details, setDetails] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setDetails(JSON.parse(window.localStorage.getItem("userDetails")));
   }, []);
@@ -41,6 +41,7 @@ const create = () => {
     return length.indexOf(' ') > 0 ? parser(length) : length;
   }
   const handleCommentSubmission = () => {
+    setLoading(true);
     const { value: title } = titleEl.current;
     const { value: content } = contentEl.current;
     const { value: excerpt } = coverTextEl.current;
@@ -83,6 +84,7 @@ const create = () => {
           setFileError(false);
         }, 3000);
       }
+      setLoading(false);
       return;
     }
     var author = JSON.parse(window.localStorage.getItem('author')).createAuthor.id;
@@ -146,12 +148,17 @@ const create = () => {
         })
       })
       .then(() => {
+        setLoading(false);
         setShowSuccessMessage(true);
         setTimeout(() => { setShowSuccessMessage(false) }, 5000 )
     })
     }
   return details == false || !details ? 
-    <div>You have to need a  <Link href="/profile">profile</Link> to create a post create on</div>
+    <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
+      <div className="flex flex-col gap-6 it">
+        <h1 className="text-center font-bold lg:text-xl text-lg">You have to need a  <Link href="/profile"><span className="text-blue-400 cursor-pointer">Profile</span></Link> to create a post create on</h1>
+      </div>
+    </div>
   : (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
@@ -258,9 +265,26 @@ const create = () => {
       <button 
       type="button"
       onClick={handleCommentSubmission}
-      className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
+            className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
+            disabled={loading && true}
       >
-          Post Comment
+            {!loading ? "Post Comment " : <div className="text-sm flex display-row"><svg
+              className="animate-spin w-6 h-6 fill-white" viewBox="0 0 26.349 26.35" >
+              <g>
+                <g>
+                  <circle cx="13.792" cy="3.082" r="3.082" />
+                  <circle cx="13.792" cy="24.501" r="1.849" />
+                  <circle cx="6.219" cy="6.218" r="2.774" />
+                  <circle cx="21.365" cy="21.363" r="1.541" />
+                  <circle cx="3.082" cy="13.792" r="2.465" />
+                  <circle cx="24.501" cy="13.791" r="1.232" />
+                  <path d="M4.694,19.84c-0.843,0.843-0.843,2.207,0,3.05c0.842,0.843,2.208,0.843,3.05,0c0.843-0.843,0.843-2.207,0-3.05
+			C6.902,18.996,5.537,18.988,4.694,19.84z"/>
+                  <circle cx="21.364" cy="6.218" r="0.924" />
+                </g>
+              </g>
+            </svg>
+              <span className="my-auto align-middle font-bold">Processing...</span></div>}
       </button>
       {showSuccessMessage && <span className="text-xl float-right font-semibold mt-3 text-green-500">Comment submitted for review</span>}
     </div>

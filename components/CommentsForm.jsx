@@ -2,7 +2,8 @@ import React, {useState, useEffect, useRef} from 'react'
 import { submitComment, publishComment } from '../services';
 const CommentsForm = ({ slug }) => {
   let [error, setError] = useState(false);
-  let [showSuccessMessage , setShowSuccessMessage] = useState(false);
+  let [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   const commentEl = useRef();
   const nameEl = useRef();
   const emailEl = useRef();
@@ -11,7 +12,8 @@ const CommentsForm = ({ slug }) => {
     nameEl.current.value = window.localStorage.getItem('name');
         emailEl.current.value = window.localStorage.getItem('email');
   }, [])
-  const handleCommentSubmission = () =>{
+  const handleCommentSubmission = () => {
+    setLoading(true);
     setError(false);
     const { value: comment } = commentEl.current;
     const { value: name } = nameEl.current;
@@ -19,6 +21,7 @@ const CommentsForm = ({ slug }) => {
     const { checked: storeData } = storeDataEl.current;
     if(!comment || !name || !email ){
       setError(true);
+      setLoading(false);
       return;
     }
     const commentObj = {
@@ -36,7 +39,8 @@ const CommentsForm = ({ slug }) => {
       .then((res) => res.createComment)
       .then((res) => res.id)
       .then((res) => publishComment({id: res}))
-      .then((res)=>{
+      .then((res) => {
+        setLoading(false)
       setShowSuccessMessage(true);
       setTimeout(()=>{ setShowSuccessMessage(false) }, 3000)
     })
