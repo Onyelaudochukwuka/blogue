@@ -1,5 +1,7 @@
+import axios from "axios";
+import {createReadStream} from 'fs';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { submitPost } from '../services'
+import { submitPost, submitImage } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -11,6 +13,7 @@ const create = () => {
   const [text, setText] = useState("");
   const [tlError, setTlError] = useState(false);
   const [value, setValue] = useState("")
+  const [url, setUrl] = useState("")
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const coverTextEl = useRef();
@@ -27,12 +30,29 @@ const create = () => {
     return length.indexOf(' ') > 0 ? parser(length) : length;
   }
   const handleCommentSubmission = () => {
+    const fd = new FormData();
+    fd.append('images', createReadStream(url))
+
+    const options = {
+      method: 'POST',
+      url: 'https://api-ap-south-1.graphcms.com/v2/cl3xen24r0fhv01v08owa0qu7/master/upload',
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImdjbXMtbWFpbi1wcm9kdWN0aW9uIn0.eyJ2ZXJzaW9uIjozLCJpYXQiOjE2NTUyMzEwNDQsImF1ZCI6WyJodHRwczovL2FwaS1hcC1zb3V0aC0xLmdyYXBoY21zLmNvbS92Mi9jbDN4ZW4yNHIwZmh2MDF2MDhvd2EwcXU3L21hc3RlciIsImh0dHBzOi8vbWFuYWdlbWVudC1uZXh0LmdyYXBoY21zLmNvbSJdLCJpc3MiOiJodHRwczovL21hbmFnZW1lbnQuZ3JhcGhjbXMuY29tLyIsInN1YiI6ImE4YjE3YjQ3LTEyMWMtNGQ1NS04NzBkLTM5MWY4OTg4ZTAxOCIsImp0aSI6ImNsNGVodHJrbTBwcWwwMXo0OTk4ZTVuc2sifQ.QkBsVaxYhRZBupa2z063AcXKoWMN-J1Q7RGdqz2pdqic6qmwLUYaFgfFA8uK4VpA9tMLTYp0rMJuah05pbK22gJF5djKmyDTEfEOH3B6xk58lyzn9yCOdylmZzmVF2qdAYdnw61Pe_y-mK4EP7v7W680m7qFThJhnYrccXalw8lthNLvuIO_Uqf7eB8uvUjUkfXpYBdP6mySfRRtxoa6oW2_Y4Z3eQM_SVGFiwK5i5op6zKNrarYrTAUaB1VOtJkKE7FChrDeGwrvAa7Hr9UL-8e8tdjoSDvhmYu3InqJjC3c5khxLbSK8iN-qgfrGcDVyRb-e0HAJHzGtYVl6u43XXd3B91HrXmsE2-9nqaUCddhvG8E8ZZuvvio7v0wWgMuJcYu3dOLjutZEj3eU5Kl3eZjj56Fe_Z84u9pRkTxizRgKPp9n2bXN3DXsNf-YxcTNvLLnmAx6Q-BpmC_9-PgK_BaVGlsMSMpPntgLdte9L5mPOkElxvU7M1Z_2VYekyUlrzQL1Y442f841PZxQ6dzroBSCAYPn8jB_3G75P_g8Pc0uWoApzVxPTKgEx2pIVCWZGLOYPgQEmaRhBd3Hy1BA-W8lCZLjQBJLyW-qnCxe19jzHcns9MXGiyAKXpRAwIclA7INbE7z6jGqgrXZopkonESPY0a1lquOiNkG0WzI',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: fd
+    };
+
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+    }).catch(function (error) {
+      console.error(error);
+    });
     const { value: title } = titleEl.current;
     const { value: content } = contentEl.current;
     const { value: excerpt } = coverTextEl.current;
     const { files: file } = fileEl.current;
     const { 0: featuredImage } = file;
-
     const slug = parser(title);
     const featredPost = true;
 
@@ -82,17 +102,20 @@ const create = () => {
           posts: '',
         }
       })
+    const image = {
+      url
+    }
       const postObj = {
         title,
         content,
         excerpt,
-        featuredImage,
         featredPost,
         slug
         
       }
     console.log(postObj);
     submitPost(postObj)
+      .then(() => submitImage(image))
       .then(() => {
         setShowSuccessMessage(true);
         setTimeout(() => { setShowSuccessMessage(false) }, 5000 )
@@ -135,6 +158,14 @@ const create = () => {
       className="py-2 px-4 w-full outline-none rounded-lg ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 bg-gray-100 text-gray-700 peer"
             ref={fileEl}
             accept="image/*"
+            onChange={(file) => {
+              const reader = new FileReader();
+              reader.addEventListener("load", () => {
+                setUrl(reader.result);
+              });
+              reader.readAsDataURL(file.target.files[0]);
+              // setUrl(file.target.files[0])
+            }}
           />
           <label htmlFor="coverText" className="font-bold lg:text-xl text-base text-gray-700 lg:peer-focus:text-2xl peer-focus:text-lg transition-all duration-300 ease-in">Cover Image</label>
 
