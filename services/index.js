@@ -143,7 +143,7 @@ export const submitPost = async (obj) => {
   })
   return result.json()
 }
-export const submitImage = async (obj) => {
+export const submitImage = async (url) => {
   const options = {
     method: 'POST',
     headers: {
@@ -151,13 +151,11 @@ export const submitImage = async (obj) => {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: `url=${encodeURIComponent(
-      'https://media.graphassets.com/P3TkBzxyQLupgDWNFydB'
+      url
     )}`,
   }
-  fetch('https://api-ap-south-1.graphcms.com/v2/cl3xen24r0fhv01v08owa0qu7/master/upload', options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
+const  result = await fetch('https://api-ap-south-1.graphcms.com/v2/cl3xen24r0fhv01v08owa0qu7/master/upload', options)
+  return result.json();
 }
 export const getComments = async (slug) =>{
   const query = gql`

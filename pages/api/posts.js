@@ -7,9 +7,9 @@ export default async function comments(req, res) {
         }
     });
     const query = gql`
-mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featredPost: Boolean!, $text: String!) {
+mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featredPost: Boolean!, $text: String!, $featuredImage: ID,) {
   createPost(
-    data: {title: $title, slug: $slug, excerpt: $excerpt, featredPost: $featredPost, text: $text}
+    data: {title: $title, slug: $slug, excerpt: $excerpt, featredPost: $featredPost, text: $text, featuredImage: {connect :{id : $featuredImage}}}
   ) {
     excerpt
     featredPost
