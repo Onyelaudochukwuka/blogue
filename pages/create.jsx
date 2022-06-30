@@ -156,7 +156,7 @@ const create = () => {
   return !details ? 
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
       <div className="flex flex-col gap-6 it">
-        <h1 className="text-center font-bold lg:text-xl text-lg">You have to need a  <Link href="/profile"><span className="text-blue-400 cursor-pointer">Profile</span></Link> to create a post create on</h1>
+        <h1 className="text-center font-bold lg:text-xl text-lg">You need a  <Link href="/profile"><span className="text-blue-400 cursor-pointer">Profile</span></Link> to create a post create on</h1>
       </div>
     </div>
   : (
