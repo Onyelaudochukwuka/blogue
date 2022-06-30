@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import { submitPost, submitImage } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
@@ -11,7 +11,8 @@ const create = () => {
   const [text, setText] = useState("");
   const [tlError, setTlError] = useState(false);
   const [value, setValue] = useState("")
-  const [url, setUrl] = useState("")
+  const [url, setUrl] = useState("");
+  const [author, setAuthor] = useState("")
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const titleEl = useRef();
     const coverTextEl = useRef();
@@ -22,6 +23,11 @@ const create = () => {
     if (e.target.value == "") return;
      tags.length <= 4 ? tags.indexOf(e.target.value) < 0 ? e.key == "Enter" ? (setTags((prev) => [...prev, e.target.value]), setText("")) : "" : (setTlError(true), setTimeout(() => setTlError(false), 3000)) : (setTextError(true), setTimeout(() => setTextError(false), 3000));
   }
+  useEffect(() => {
+    setAuthor(window.localStorage.getItem('author'));
+    console.log(author);
+  }, [])
+  
   const parser = (arg) => {
     const length = arg.toLowerCase().replace(' ', '-');
 
@@ -116,7 +122,10 @@ const create = () => {
         content,
         excerpt,
         featredPost,
-        slug, res)))
+        slug,
+        res,
+        
+      )))
       .then((res)=>console.log(res))
       .then(() => {
         setShowSuccessMessage(true);

@@ -7,9 +7,9 @@ export default async function comments(req, res) {
         }
     });
     const query = gql`
-mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featredPost: Boolean!, $text: String!, $featuredImage: ID,) {
+mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featredPost: Boolean!, $text: String!, $featuredImage: ID, $author: ID) {
   createPost(
-    data: {title: $title, slug: $slug, excerpt: $excerpt, featredPost: $featredPost, text: $text, featuredImage: {connect :{id : $featuredImage}}}
+    data: {title: $title, slug: $slug, excerpt: $excerpt, featredPost: $featredPost, text: $text, featuredImage: {connect: {id: $featuredImage}}, author: {connect: {id: $author}}}
   ) {
     excerpt
     featredPost
@@ -18,6 +18,7 @@ mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featred
     text
   }
 }
+
 `;
     try {
         const result = await graphQlClient.request(query, {
