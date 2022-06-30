@@ -31,7 +31,6 @@ const create = () => {
   useEffect(() => {
     setInterval(() => {
       setAuthor(()=>JSON.parse(window.localStorage.getItem('author')));
-      console.log(author)
     },5000);
   }, [])
   
@@ -131,11 +130,10 @@ const create = () => {
             id: res
           }
           getCategories()
-            .then((res) => res.map((obj) => obj.slug), console.log(res))
-            .then((categories) => categories.includes(categoryObj.slug), console.log(categories))
+            .then((res) => res.map((obj) => obj.slug))
+            .then((categories) => categories.includes(categoryObj.slug))
     
             .then(async (exist) => {
-              console.log(exist);
             return  !exist
                 ?
                 submitCategory(categoryObj)
