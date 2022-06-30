@@ -84,11 +84,8 @@ const create = () => {
     }
       const category = tags.map((tag) => {
         return {
-          createdAt: Date.now(),
-          updatedAt: Date.now(),
           name: tag,
-          slug: parser(tag),
-          posts: '',
+          slug: parser(tag)
         }
       })
     const image = {
