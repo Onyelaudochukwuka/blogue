@@ -7,7 +7,7 @@ export default async function comments(req, res) {
         }
     });
     const query = gql`
- mutation PublishAuthor($id:ID) {
+    mutation PublishAuthor($id:ID) {
   publishAuthor(to: PUBLISHED, where: {id: $id}){id}
 }
 

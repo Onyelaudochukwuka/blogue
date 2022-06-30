@@ -1,5 +1,5 @@
 import React, { useState, useRef,useEffect } from 'react';
-import { submitPost, submitImage, submitCategory } from '../services'
+import { submitPost, submitImage, submitCategory, publishImage } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -110,25 +110,19 @@ const create = () => {
         author
       }
     }
-    console.log(objCreate(23, 4, 5, 67, 7,8));
-      const postObj = {
-        title,
-        content,
-        excerpt,
-        featredPost,
-        slug
-        
-    }
     submitImage(featuredImage)
       .then((res)=>res.id)
-      .then((res) => submitPost(objCreate(title,
-        content,
-        excerpt,
-        featredPost,
-        slug,
-        res,
-        author
-      )))
+      .then((res) => {
+        publishImage(res)
+       return submitPost(objCreate(title,
+          content,
+          excerpt,
+          featredPost,
+          slug,
+          res,
+          author
+        ))
+      })
       .then((res) => res.createPost)
       .then((res) => res.id)
       .then((res) => {

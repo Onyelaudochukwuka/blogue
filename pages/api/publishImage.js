@@ -7,10 +7,9 @@ export default async function comments(req, res) {
         }
     });
     const query = gql`
-mutation PublishAuthor($id: ID) {
+mutation PublishAsset($id: ID) {
   publishAsset(where: {id: $id}, to: PUBLISHED){id}
 }
-
 `;
     try {
         const result = await graphQlClient.request(query, {
