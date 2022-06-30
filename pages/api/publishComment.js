@@ -8,7 +8,7 @@ export default async function publishComment(req, res) {
         }
     });
     const query = gql`
-    mutation CreatePost($id:ID) {
+    mutation PublishComment($id:ID) {
     publishComment(where: { id: $id }, to: PUBLISHED){ id }
 }
 `;

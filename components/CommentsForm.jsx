@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { submitComment } from '../services';
+import { submitComment, publishComment } from '../services';
 const CommentsForm = ({ slug }) => {
   let [error, setError] = useState(false);
   let [showSuccessMessage , setShowSuccessMessage] = useState(false);
@@ -33,7 +33,10 @@ const CommentsForm = ({ slug }) => {
       window.localStorage.removeItem('email', email)
     }
     submitComment(commentObj)
-    .then((res)=>{
+      .then((res) => res.createComment)
+      .then((res) => res.id)
+      .then((res) => publishComment({id: res}))
+      .then((res)=>{
       setShowSuccessMessage(true);
       setTimeout(()=>{ setShowSuccessMessage(false) }, 3000)
     })

@@ -217,6 +217,16 @@ export const publishCategory = async (obj) => {
   });
   return result.json();
 }
+export const publishComment = async (obj) => {
+  const result = await fetch('/api/publishComment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
+  return result.json();
+}
 export const updateCategory = async (obj) => {
   const result = await fetch('/api/updateCategory', {
     method: 'POST',
