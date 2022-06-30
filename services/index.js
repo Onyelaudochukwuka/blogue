@@ -141,7 +141,7 @@ export const submitPost = async (obj) => {
     },
     body: JSON.stringify(obj),
   })
-  return result.json()
+  return result.json();
 }
 export const submitAuthor = async (obj) => {
   const result = await fetch('/api/author', {
@@ -152,6 +152,16 @@ export const submitAuthor = async (obj) => {
     body: JSON.stringify(obj),
   })
   return result.json()
+}
+export const submitCategory = async (obj) => {
+  const result = await fetch('/api/category', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  })
+  return result.json();
 }
 export const submitImage = async (url) => {
   const options = {

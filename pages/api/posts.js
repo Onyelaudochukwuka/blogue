@@ -11,11 +11,7 @@ mutation CreatePost($title: String!, $slug: String!, $excerpt: String!, $featred
   createPost(
     data: {title: $title, slug: $slug, excerpt: $excerpt, featredPost: $featredPost, text: $text, featuredImage: {connect: {id: $featuredImage}}, author: {connect: {id: $author}}}
   ) {
-    excerpt
-    featredPost
-    slug
-    title
-    text
+    id
   }
 }
 

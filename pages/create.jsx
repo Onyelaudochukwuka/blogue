@@ -1,5 +1,5 @@
 import React, { useState, useRef,useEffect } from 'react';
-import { submitPost, submitImage } from '../services'
+import { submitPost, submitImage, submitCategory } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -129,7 +129,16 @@ const create = () => {
         res,
         author
       )))
-      .then((res)=>console.log(res))
+      .then((res) => res.createPost)
+      .then((res) => res.id)
+      .then((res) => {
+        tags.map((tag) => {
+          const categoryObj = {
+            name: tag,
+            slug: parser(tag)
+          }
+        })
+      })
       .then(() => {
         setShowSuccessMessage(true);
         setTimeout(() => { setShowSuccessMessage(false) }, 5000 )
