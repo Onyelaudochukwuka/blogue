@@ -7,14 +7,13 @@ export default async function comments(req, res) {
         }
     });
     const query = gql`
-mutation CreateCategory($name: String!, $slug: String!, $id:ID) {
-  createCategory(data: {name: $name, slug: $slug, posts: {connect: {id: $id}}}){id}
+ mutation PublishAuthor($id:ID) {
+  publishAuthor(to: PUBLISHED, where: {id: $id}){id}
 }
+
 `;
     try {
         const result = await graphQlClient.request(query, {
-            name: req.body.name,
-            slug: req.body.slug,
             id: req.body.id
         });
         return res.status(200).send(result);

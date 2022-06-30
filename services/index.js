@@ -150,8 +150,18 @@ export const submitAuthor = async (obj) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(obj),
-  })
+  });
   return result.json()
+}
+export const publishAuthor = async (obj) => {
+  const result = await fetch('/api/publishAuthor', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
+  return result.json();
 }
 export const submitCategory = async (obj) => {
   const result = await fetch('/api/category', {

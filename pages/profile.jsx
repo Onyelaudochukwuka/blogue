@@ -46,7 +46,7 @@ const profile = () => {
       })
   }
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
+    <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave A Reply</h3>
       <div className="grid grid-cols-1 gap-4 mb-4">
         <input

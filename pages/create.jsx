@@ -135,8 +135,10 @@ const create = () => {
         tags.map((tag) => {
           const categoryObj = {
             name: tag,
-            slug: parser(tag)
+            slug: parser(tag),
+            id: res
           }
+          submitCategory(categoryObj)
         })
       })
       .then(() => {
