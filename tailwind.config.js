@@ -7,6 +7,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-    ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
-  
 }
