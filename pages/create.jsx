@@ -1,5 +1,5 @@
 import React, { useState, useRef,useEffect } from 'react';
-import { submitPost, submitImage, submitCategory, publishImage, publishPost } from '../services'
+import { submitPost, submitImage, submitCategory, publishImage, publishPost, publishCategory } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -123,6 +123,9 @@ const create = () => {
             id: res
           }
           submitCategory(categoryObj)
+            .then((res) => res.createCategory)
+            .then((res) => res.id)
+            .then((res) => publishCategory({ id: res }))
         })
       })
       .then(() => {
