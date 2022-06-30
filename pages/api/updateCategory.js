@@ -7,12 +7,16 @@ export default async function updateCategory(req, res) {
         }
     });
     const query = gql`
-        mutation UpdateCategory($name: String!, $id: ID) {
-    updateCategory(data: { posts: { connect: { where: { id: $id } } }, name: $name }){ id }
+mutation UpdateCategory($slug: String!, $id: ID) {
+  updateCategory(
+    data: {posts: {connect: {where: {id: $id}}}}
+    where: {slug: $slug}
+  ){ id }
 }
 `;
     try {
         const result = await graphQlClient.request(query, {
+            slug: req.body.slug,
             id: req.body.id
         });
         return res.status(200).send(result);

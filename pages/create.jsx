@@ -1,5 +1,5 @@
 import React, { useState, useRef,useEffect } from 'react';
-import { submitPost, submitImage, submitCategory, publishImage, publishPost, publishCategory, getCategories } from '../services'
+import { submitPost, submitImage, submitCategory, publishImage, publishPost, publishCategory, getCategories, updateCategory } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -100,9 +100,7 @@ const create = () => {
         author
       }
     }
-    getCategories()
-      .then((res) => res.map((obj) => obj.name))
-      .then((res) => setCategories(res));
+    
     submitImage(featuredImage)
       .then((res)=>res.id)
       .then((res) => {
@@ -126,16 +124,22 @@ const create = () => {
             slug: parser(tag),
             id: res
           }
-          return categories.indexOf(tag) < 0
-            ?
-            submitCategory(categoryObj)
-              .then((res) => res.createCategory)
-              .then((res) => res.id)
-              .then((res) => publishCategory({ id: res }))
-              :
-""
+          getCategories()
+            .then((res) => res.map((obj) => obj.slug), console.log(res))
+            .then((categories) => categories.includes(categoryObj.slug), console.log(categories))
+    
+            .then(async (exist) => {
+              console.log(exist);
+            return  !exist
+                ?
+                submitCategory(categoryObj)
+                  .then((res) => res.createCategory)
+                  .then((res) => res.id)
+                  .then((res) => publishCategory({ id: res }))
+                :
+                updateCategory({ id: res, slug: categoryObj.slug });
+            })
         })
-  
       })
       .then(() => {
         setShowSuccessMessage(true);
