@@ -3,17 +3,20 @@ import { publishAuthor, publishImage, submitAuthor, submitImage } from '../servi
 const profile = () => {
   let [error, setError] = useState(false);
   let [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [res, setRes] = useState("")
+  const [res, setRes] = useState(false);
+  const [userDetail, setUserDetail] = useState(false);
+  const [details, setDetails] = useState(false);
   const bioEl = useRef();
   const nameEl = useRef();
   const emailEl = useRef();
-  useEffect(() => {
-    nameEl.current.value = window.localStorage.getItem('name');
-    emailEl.current.value = window.localStorage.getItem('email');
-  }, [])
+
   useEffect(() => {
     window.localStorage.setItem("author", JSON.stringify(res));
-  },[res])
+    setDetails(JSON.parse(window.localStorage.getItem("userDetails")));
+  }, [res])
+  useEffect(() => {
+    setDetails(JSON.parse(window.localStorage.getItem("userDetails")));
+  }, []);
   const handleCommentSubmission = () => {
     setError(false);
     const { value: bio } = bioEl.current;
@@ -46,12 +49,13 @@ const profile = () => {
         publishAuthor({ id: res.createAuthor.id });
         setRes(res)
       })
+      .then(() => window.localStorage.setItem("userDetails", JSON.stringify(objCreate(name, bio, photo)))));
       .then((res) => {
         setShowSuccessMessage(true);
         setTimeout(() => { setShowSuccessMessage(false) }, 3000)
       })
   }
-  return (
+  return details == false ? (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave A Reply</h3>
       <div className="grid grid-cols-1 gap-4 mb-4">
@@ -95,6 +99,16 @@ const profile = () => {
       </div>
     </div>
   )
+    :
+    (
+      <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
+        <div>
+          <h1 className="text-align font-bold lg:text-xl text-lg">{details.name}</h1>
+          {details.bio}
+        
+        </div>
+        </div>
+        )
 }
 
 export default profile;
