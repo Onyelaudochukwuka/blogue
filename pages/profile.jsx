@@ -57,10 +57,9 @@ const profile = () => {
         setTimeout(() => { setShowSuccessMessage(false) }, 3000)
       })
   }
-  console.log(details);
   return details == false || !details ? (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
-      <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave A Reply</h3>
+      <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Author</h3>
       <div className="grid grid-cols-1 gap-4 mb-4">
         <input
           type="text"
@@ -104,14 +103,15 @@ const profile = () => {
   )
     :
     (
-      <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto flex flex-col gap-4">
-        <div>
+      <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
+        <div className="flex flex-col gap-6">
           <h1 className="text-align font-bold lg:text-xl text-lg">{details.name}</h1>
+          <img src={details.photo} />
           <p>{details.bio}</p>
           <button
             type="button"
             onClick={() => { window.localStorage.clear(), router.reload() }}
-            className="transition duration-500 ease hover:text-indigo-900 inline-block text-lg font-bold rounded-full text-white shadow-lg bg-gray-600 p-3 px-8   cursor-pointer"
+            className="transition duration-500 ease hover:text-gray-600 hover:bg-white inline-block text-lg font-bold rounded-full text-white shadow-lg bg-gray-600 p-3 px-8   cursor-pointer"
           >
             logOut
           </button>

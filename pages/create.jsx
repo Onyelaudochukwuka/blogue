@@ -1,4 +1,5 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { submitPost, submitImage, submitCategory, publishImage, publishPost, publishCategory, getCategories, updateCategory } from '../services'
 const create = () => {
   const [error, setError] = useState(false);
@@ -11,10 +12,13 @@ const create = () => {
   const [text, setText] = useState("");
   const [tlError, setTlError] = useState(false);
   const [value, setValue] = useState("")
-  const [url, setUrl] = useState("");
   const [author, setAuthor] = useState("")
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
+  const [details, setDetails] = useState(false);
+  useEffect(() => {
+    setDetails(JSON.parse(window.localStorage.getItem("userDetails")));
+  }, []);
     const titleEl = useRef();
     const coverTextEl = useRef();
     const contentEl = useRef();
@@ -146,7 +150,9 @@ const create = () => {
         setTimeout(() => { setShowSuccessMessage(false) }, 5000 )
     })
     }
-  return (
+  return details == false || !details ? 
+    <div>You have to need a  <Link href="/profile">profile</Link> to create a post create on</div>
+  : (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
     <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Content</h3>
     
