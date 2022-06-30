@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { Header } from './';
 import Head from 'next/head';
+import Image from "next/image";
 const Layout = ({children}) => {
   return (
     <div>
@@ -8,7 +9,6 @@ const Layout = ({children}) => {
         <title>Blogue</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <span></span>
       <Header />  
       {children}
     </div>
