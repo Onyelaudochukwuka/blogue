@@ -2,7 +2,11 @@ import React, { useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 const Header = () => {
-    const [drop, setDrop] = useState(false)
+    const [drop, setDrop] = useState(false);
+    const [details, setDetails] = useState(false);
+    useEffect(() => {
+        setDetails(JSON.parse(window.localStorage.getItem("userDetails")));
+    }, []);
   return (
     <>
     <div className="container mx-auto px-10 mb-8 z-10">
@@ -16,7 +20,9 @@ const Header = () => {
                 </div>
                 <div className="float-left contents">
                 <span className="float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
-                <Image src="/../public/OIP.jfif" width="75px" height= "75px" className="rounded-full inline-block ring-2 ring-white z-10" onClick={()=>setDrop((!drop))}/>
+                          <Image src={`${!details ? `https://www.pngmart.com/files/10/User-Account-PNG-Clipart.png`: details.photo }`}
+                              unoptimized
+                              width="75px" height="75px" className="rounded-full inline-block ring-2 ring-white z-10" onClick={() => setDrop((!drop))} />
                  <div className={`${drop ? `flex` : `hidden`} transition duration-500 ease absolute right-6 flex-col bg-white shadow-lg rounded-lg p-4 mb-8 z-10`}>
                     <Link href="/profile"><span className="mb-8 font-black border-b border-gray-400 pb-4 md:float-right mt-2 align-middle text-black cursor-pointer hover:text-gray-400">
                     My Profile
