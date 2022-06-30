@@ -1,7 +1,7 @@
 
 import { GraphQLClient, gql } from 'graphql-request';
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
-export default async function comments(req, res) {
+export default async function publishPost(req, res) {
     const graphQlClient = new GraphQLClient(graphqlAPI, {
         headers: {
             authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`
