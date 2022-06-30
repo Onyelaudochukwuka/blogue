@@ -113,7 +113,7 @@ const create = () => {
     submitImage(featuredImage)
       .then((res)=>res.id)
       .then((res) => {
-        publishImage(res)
+        publishImage(res);
        return submitPost(objCreate(title,
           content,
           excerpt,
