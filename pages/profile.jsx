@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import Image from "next/image";
 import { publishAuthor, publishImage, submitAuthor, submitImage } from '../services';
 const profile = () => {
   const router = useRouter()
@@ -59,7 +60,7 @@ const profile = () => {
         setTimeout(() => { setShowSuccessMessage(false) }, 3000)
       })
   }
-  return details == false || !details ? (
+  return !details ? (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">Create Author</h3>
       <div className="grid grid-cols-1 gap-4 mb-4">
@@ -98,7 +99,7 @@ const profile = () => {
           className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
           disabled={loading && true}
         >
-         { !loading ? "Post Comment"  : <div className="text-sm flex display-row"><svg
+         { !loading ? "Create An Account"  : <div className="text-sm flex display-row"><svg
             className="animate-spin w-6 h-6 fill-white" viewBox="0 0 26.349 26.35" >
             <g>
               <g>
@@ -125,7 +126,12 @@ const profile = () => {
       <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
         <div className="flex flex-col gap-6">
           <h1 className="text-align font-bold lg:text-xl text-lg">{details.name}</h1>
-          <img src={details.photo} />
+          <div className="block w-3/4 mx-auto">
+            <img
+            alt={details.name}
+            src={details.photo}
+          />
+          </div>
           <p>{details.bio}</p>
           <button
             type="button"

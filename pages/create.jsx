@@ -153,7 +153,7 @@ const create = () => {
         setTimeout(() => { setShowSuccessMessage(false) }, 5000 )
     })
     }
-  return details == false || !details ? 
+  return !details ? 
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8 w-4/5 m-auto">
       <div className="flex flex-col gap-6 it">
         <h1 className="text-center font-bold lg:text-xl text-lg">You have to need a  <Link href="/profile"><span className="text-blue-400 cursor-pointer">Profile</span></Link> to create a post create on</h1>
@@ -268,7 +268,7 @@ const create = () => {
             className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
             disabled={loading && true}
       >
-            {!loading ? "Post Comment " : <div className="text-sm flex display-row"><svg
+            {!loading ? "Create Post " : <div className="text-sm flex display-row"><svg
               className="animate-spin w-6 h-6 fill-white" viewBox="0 0 26.349 26.35" >
               <g>
                 <g>
