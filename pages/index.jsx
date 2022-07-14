@@ -1,4 +1,5 @@
-import Image from 'next/image'
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import { PostCard, Categories, PostWidget} from '../components';
 import { getPosts } from '../services';
 import { FeaturedPosts } from '../sections';
