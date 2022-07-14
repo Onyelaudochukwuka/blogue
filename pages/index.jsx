@@ -3,6 +3,15 @@ import { PostCard, Categories, PostWidget} from '../components';
 import { getPosts } from '../services';
 import { FeaturedPosts } from '../sections';
 const Home = ({ posts }) => {
+    const [posts, setPosts] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  useEffect(() => {
+    getPosts().then((result) => {
+      setPosts(result);
+      setDataLoaded(true);
+    });
+  }, []);
   return (
     <div className="container mx-auto px-10 mb-8">
       <FeaturedPosts />
@@ -21,10 +30,4 @@ const Home = ({ posts }) => {
   )
 }
 export default Home;
-export const getStaticProps = async () => {
-  const posts = (await getPosts()) || [];
 
-  return {
-    props: { posts }
-  }
-}
