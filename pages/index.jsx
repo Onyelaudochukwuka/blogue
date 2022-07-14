@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { PostCard, Categories, PostWidget} from '../components';
 import { getPosts } from '../services';
 import { FeaturedPosts } from '../sections';
-const Home = ({ posts }) => {
+const Home = () => {
     const [posts, setPosts] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
 
